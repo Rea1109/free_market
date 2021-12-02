@@ -13,7 +13,13 @@ import Layout from "../src/components/commons/layout";
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { useState, Dispatch, SetStateAction, createContext } from "react";
+import {
+  useState,
+  Dispatch,
+  SetStateAction,
+  createContext,
+  useEffect,
+} from "react";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -30,6 +36,14 @@ const firebaseConfig = {
 interface IGlobalContext {
   accessToken?: string;
   setAccessToken?: Dispatch<SetStateAction<string>>;
+  userInfo?: {
+    name?: string;
+    email?: string;
+    picture?: string;
+  };
+  setUserInfo?: Dispatch<SetStateAction<{}>>;
+  isLogin?: boolean;
+  setIsLogin?: Dispatch<SetStateAction<boolean>>;
 }
 
 // Initialize Firebase
@@ -38,16 +52,31 @@ export const GlobalContext = createContext<IGlobalContext>({});
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [accessToken, setAccessToken] = useState("");
-  // const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState({});
+  const [isLogin, setIsLogin] = useState(false);
   const globarState = {
     accessToken,
     setAccessToken,
-    // userInfo,
-    // setUserInfo,
+    userInfo,
+    setUserInfo,
+    isLogin,
+    setIsLogin,
   };
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken") || "";
+
+    if (accessToken) {
+      const userInfo = JSON.parse(localStorage.getItem("userInfo") || "");
+      setAccessToken(accessToken);
+      setUserInfo(userInfo);
+      setIsLogin((prev) => !prev);
+    }
+  }, []);
 
   const uploadLink = createUploadLink({
     uri: "http://backend04.codebootcamp.co.kr/graphql",
+    headers: { authorization: `Bearer ${accessToken}` },
   });
 
   const client = new ApolloClient({

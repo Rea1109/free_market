@@ -26,3 +26,7 @@ export function remakeContents(contents: string) {
 export function getTemp(temp: string) {
   return (Number(temp) - 273.15).toFixed(1);
 }
+
+export function changeUrl(url: string) {
+  return `https://storage.googleapis.com/${url}`;
+}

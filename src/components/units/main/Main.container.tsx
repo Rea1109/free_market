@@ -2,7 +2,6 @@ import MainUI from "./Main.presenter";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Modal } from "antd";
 import { getTemp } from "../../../commons/libraries/utils";
 import { IWeatherInfo } from "./Main.types";
 
@@ -35,7 +34,7 @@ export default function Main() {
   return (
     <MainUI
       onMoveBoard={() => router.push("/boards")}
-      onMobeMarket={() => Modal.warning({ title: "준비중 입니다." })}
+      onMobeMarket={() => router.push("/market")}
       weatherInfo={weatherInfo}
     />
   );

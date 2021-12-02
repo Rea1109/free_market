@@ -123,7 +123,7 @@ export const SignUpMenu = styled.div`
 `;
 
 export const SignMenuImg = styled.div`
-  width: 45%;
+  width: 60%;
   height: 100%;
   background-image: url("/images/commons/signup-bg.png");
   background-repeat: no-repeat;
