@@ -24,12 +24,19 @@ export default function Uploads(props: any) {
     setUploadImages((prev) => [...prev, result.data.uploadFile.url]);
     props.setImages((prev: []) => [...prev, result.data.uploadFile.url]);
   };
+
+  const onClickDelete = (idx: number) => () => {
+    alert("삭제");
+    console.log(uploadImages[idx]);
+    console.log(uploadImages);
+  };
   return (
     <UploadsUI
       onChangeFile={onChangeFile}
       uploadImages={uploadImages}
       onClickAddImage={onClickAddImage}
       fileRef={fileRef}
+      onClickDelete={onClickDelete}
     />
   );
 }

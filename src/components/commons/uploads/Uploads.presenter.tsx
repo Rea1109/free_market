@@ -1,20 +1,21 @@
+import * as S from "./Uploads.styles";
 import { changeUrl } from "../../../commons/libraries/utils";
 
 export default function UploadsUI(props: any) {
   return (
     <>
       {props.uploadImages &&
-        props.uploadImages.map((el: string) => (
-          <img
-            key={el}
-            src={changeUrl(el)}
-            style={{ width: "60px", height: "60px" }}
-          />
+        props.uploadImages.map((el: string, idx: number) => (
+          <S.UploadImageWrapper key={el}>
+            <S.UploadImage src={changeUrl(el)} />
+            <S.DeleteIcon
+              onClick={props.onClickDelete(idx)}
+              src="/images/commons/logout.png"
+            />
+          </S.UploadImageWrapper>
         ))}
-      <div
-        onClick={props.onClickAddImage}
-        style={{ backgroundColor: "gray", width: "60px", height: "60px" }}
-      ></div>
+      <S.UploadIcon onClick={props.onClickAddImage}></S.UploadIcon>
+
       <input
         hidden
         type="file"

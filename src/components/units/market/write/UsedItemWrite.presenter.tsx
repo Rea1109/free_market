@@ -4,24 +4,32 @@ import * as S from "./UsedItemWrite.styles";
 export default function UsedItemWriteUI(props: any) {
   return (
     <S.WriteUsedItemForm onSubmit={props.handleSubmit(props.onSubmitUsedItem)}>
-      <S.FormHeadr>상품 등록 페이지</S.FormHeadr>
+      <S.FormLeft>
+        <S.FormLeftHeader>
+          <S.InfoInputBox1 type="text" {...props.register("name")} />
+          <div>{props.formState.errors.name?.message}</div>
+          <S.InfoInputBox1 type="number" {...props.register("price")} />
+          <div>{props.formState.errors.price?.message}</div>
+        </S.FormLeftHeader>
+        <S.FormInputBody>
+          <S.InfoInputBox1 type="text" />
+          <S.InfoInputBox1 type="text" {...props.register("remarks")} />
+          <div>{props.formState.errors.remarks?.message}</div>
+          <S.InfoInputBox2 type="text" {...props.register("contents")} />
+          <div>{props.formState.errors.contents?.message}</div>
+        </S.FormInputBody>
+      </S.FormLeft>
 
-      <S.FormBody>
-        상품이름 <input type="text" {...props.register("name")} /> <br />
-        <div>{props.formState.errors.name?.message}</div>
-        상품내용 <input type="text" {...props.register("contents")} /> <br />
-        <div>{props.formState.errors.contents?.message}</div>
-        가격
-        <input type="number" {...props.register("price")} /> <br />
-        <div>{props.formState.errors.price?.message}</div>
-        한줄소개
-        <input type="text" {...props.register("remarks")} /> <br />
-        <div>{props.formState.errors.remarks?.message}</div>
-        <Uploads setImages={props.setImages} />
-      </S.FormBody>
-      <S.FormFooter>
-        <button>상품 등록하기</button>
-      </S.FormFooter>
+      <S.FormRight>
+        <S.ImageForm>
+          <Uploads setImages={props.setImages} />
+        </S.ImageForm>
+        <S.MapForm></S.MapForm>
+        <S.BtnBottom>
+          <button>등록하기</button>
+          <button type="reset">취소하기</button>
+        </S.BtnBottom>
+      </S.FormRight>
     </S.WriteUsedItemForm>
   );
 }

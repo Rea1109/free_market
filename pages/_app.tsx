@@ -68,6 +68,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     if (accessToken) {
       const userInfo = JSON.parse(localStorage.getItem("userInfo") || "");
+
       setAccessToken(accessToken);
       setUserInfo(userInfo);
       setIsLogin((prev) => !prev);
