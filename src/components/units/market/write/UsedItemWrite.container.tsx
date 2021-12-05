@@ -13,6 +13,13 @@ export default function UsedItemWrite() {
   const router = useRouter();
 
   const [images, setImages] = useState([]);
+  const [useditemAddress, setUseditemAddress] = useState({
+    zipcode: "",
+    address: "",
+    addressDetail: "",
+    lat: 0,
+    lng: 0,
+  });
 
   const [createUsedItem] = useMutation(CREATE_USED_ITEM);
 
@@ -32,6 +39,7 @@ export default function UsedItemWrite() {
             remarks: data.remarks,
             images,
             tags: [],
+            useditemAddress,
           },
         },
       });
@@ -50,6 +58,7 @@ export default function UsedItemWrite() {
       formState={formState}
       onSubmitUsedItem={onSubmitUsedItem}
       setImages={setImages}
+      setUseditemAddress={setUseditemAddress}
     />
   );
 }

@@ -14,8 +14,8 @@ import { useRouter } from "next/router";
 import { Modal } from "antd";
 
 const schema = yup.object().shape({
-  email: yup.string().email().required(),
-  password: yup.string().required(),
+  email: yup.string().email("check email").required("check email"),
+  password: yup.string().required("check passowrd"),
 });
 
 interface FormValues {
@@ -82,6 +82,10 @@ export default function Login() {
     location.reload();
   };
 
+  const onMoveSignUp = () => {
+    alert("회원가입 페이지 이동");
+  };
+
   return (
     <LoginUI
       loginUser={loginUser}
@@ -92,6 +96,7 @@ export default function Login() {
       isLogin={isLogin}
       userInfo={userInfo}
       onClickLogOut={onClickLogOut}
+      onMoveSignUp={onMoveSignUp}
     />
   );
 }

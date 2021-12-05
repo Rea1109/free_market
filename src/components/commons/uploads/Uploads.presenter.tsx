@@ -4,17 +4,19 @@ import { changeUrl } from "../../../commons/libraries/utils";
 export default function UploadsUI(props: any) {
   return (
     <>
-      {props.uploadImages &&
-        props.uploadImages.map((el: string, idx: number) => (
-          <S.UploadImageWrapper key={el}>
-            <S.UploadImage src={changeUrl(el)} />
-            <S.DeleteIcon
-              onClick={props.onClickDelete(idx)}
-              src="/images/commons/logout.png"
-            />
-          </S.UploadImageWrapper>
-        ))}
-      <S.UploadIcon onClick={props.onClickAddImage}></S.UploadIcon>
+      <S.UploadImageTitle>Attach Images</S.UploadImageTitle>
+      <S.UploadImageWrapper>
+        {props.uploadImages &&
+          props.uploadImages.map((el: string, idx: number) => (
+            <>
+              <S.UploadImage key={el} src={changeUrl(el)} />
+            </>
+          ))}
+
+        <S.UploadIcon onClick={props.onClickAddImage}>
+          upload image
+        </S.UploadIcon>
+      </S.UploadImageWrapper>
 
       <input
         hidden

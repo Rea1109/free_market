@@ -16,6 +16,10 @@ export default function Uploads(props: any) {
   };
 
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
+    if (uploadImages.length > 2) {
+      alert("최대 3개 등록 가능");
+      return;
+    }
     const file = checkValidationImage(event.target.files?.[0]);
     if (!file) return;
     const result = await uploadFile({

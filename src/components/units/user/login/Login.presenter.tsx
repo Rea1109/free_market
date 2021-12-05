@@ -19,21 +19,33 @@ export default function LoginUI(props: any) {
         </S.LogedWrapper>
       ) : (
         <>
-          <h3>Welcome</h3>
+          <S.LoginTitle>Welcome</S.LoginTitle>
           <S.InputWrapper>
-            <input type="text" {...props.register("email")} />
-            <div>{props.formState.errors.email?.message}</div>
+            <S.InputBox
+              type="text"
+              {...props.register("email")}
+              placeholder="Email"
+            />
+            <S.ErrorText>{props.formState.errors.email?.message}</S.ErrorText>
           </S.InputWrapper>
           <S.InputWrapper>
-            <input type="password" {...props.register("password")} />
-            <div>{props.formState.errors.password?.message}</div>
+            <S.InputBox
+              type="password"
+              {...props.register("password")}
+              placeholder="Passowrd"
+            />
+            <S.ErrorText>
+              {props.formState.errors.password?.message}
+            </S.ErrorText>
           </S.InputWrapper>
           <S.BtnWrapper>
             <div>
-              <button>sign in</button>
+              <S.SumbitBtn type="submit">sign in</S.SumbitBtn>
             </div>
             <div>
-              <button type="button">sign up</button>
+              <S.ClickBtn onClick={props.onMoveSignUp} type="button">
+                sign up
+              </S.ClickBtn>
             </div>
           </S.BtnWrapper>
         </>

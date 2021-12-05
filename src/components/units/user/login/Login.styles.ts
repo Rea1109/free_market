@@ -54,14 +54,48 @@ export const LoginMenuForm = styled.form`
   align-items: center;
 `;
 
+export const LoginTitle = styled.h3`
+  font-size: 40px;
+  font-weight: bolder;
+  color: #45c5e5;
+`;
+
 export const InputWrapper = styled.div`
   width: 80%;
-  background-color: red;
+`;
+
+export const InputBox = styled.input`
+  width: 100%;
+  height: 50px;
+  padding: 20px;
+  border-radius: 10px;
+`;
+
+export const ErrorText = styled.div`
+  color: red;
+  font-size: 15px;
 `;
 
 export const BtnWrapper = styled.div`
   width: 80%;
   display: flex;
   justify-content: space-evenly;
-  background-color: red;
+`;
+
+export const SumbitBtn = styled.button`
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  background-color: #fdb825;
+  color: white;
+`;
+
+export const ClickBtn = styled.button`
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  background-color: transparent;
+  color: black;
 `;
