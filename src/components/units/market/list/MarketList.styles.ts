@@ -25,6 +25,7 @@ export const UsedItemsWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  overflow: auto;
 `;
 
 export const BestItemCard = styled.div`
@@ -69,12 +70,6 @@ export const Info = styled.span`
   overflow: hidden;
   width: 90%;
   height: 10%;
-`;
-
-export const UpBtn = styled.button`
-  bottom: 10px;
-  right: 80px;
-  position: fixed;
 `;
 
 export const AddBtn = styled.button`

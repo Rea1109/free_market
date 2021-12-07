@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
-import TextField from "@mui/material/TextField";
+import "react-quill/dist/quill.snow.css";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export const WriteUsedItemForm = styled.form`
   margin-bottom: 10px;
@@ -82,17 +84,22 @@ export const MapForm = styled.div`
   height: 70%;
 `;
 
-export const ContentsInputBox = styled.textarea`
+export const ContentsInputBox = styled(ReactQuill)`
   width: 90%;
-  height: 300px;
-  resize: none;
-  padding: 20px;
-  border: 1px solid #c4c4c4;
-  border-radius: 5px;
+  height: 600px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px gray;
+  overflow: auto;
 `;
 
-export const InfoInputBox = styled(TextField)`
+export const InfoInputBox = styled.input`
   width: 90%;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px gray;
+  padding-left: 20px;
 `;
 
 export const ErrorText = styled.div`

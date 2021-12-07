@@ -24,10 +24,20 @@ export default function UsedItemWrite(props: any) {
   const [createUsedItem] = useMutation(CREATE_USED_ITEM);
   const [updateUsedItem] = useMutation(UPDATE_USED_ITEM);
 
-  const { handleSubmit, register, formState } = useForm({
+  const { handleSubmit, register, setValue, trigger, formState } = useForm({
     mode: "onChange",
     resolver: yupResolver(schema),
   });
+
+  const handleChange = (value: string) => {
+    console.log(value);
+
+    // register로 등록하지 않고, 강제로 값을 넣어주는 기능
+    setValue("contents", value === "<p><br></p>" ? "" : value);
+
+    // onChange 됐는지 안됐는지 react-hook-form에 알려주는 기능!
+    trigger("contents");
+  };
 
   const onSubmitUsedItem = async (data: FormValues) => {
     try {
@@ -87,6 +97,7 @@ export default function UsedItemWrite(props: any) {
       isEdit={props.isEdit}
       data={props.data}
       onClickUpdate={onClickUpdate}
+      handleChange={handleChange}
     />
   );
 }

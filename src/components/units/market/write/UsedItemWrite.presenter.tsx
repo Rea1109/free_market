@@ -2,14 +2,12 @@ import { useRouter } from "next/router";
 import SearchAddr from "../../../commons/address/search/SearchAddr.container";
 import Uploads from "../../../commons/uploads/Uploads.container";
 import * as S from "./UsedItemWrite.styles";
-import { Select } from "antd";
+
+import "react-quill/dist/quill.snow.css";
 
 export default function UsedItemWriteUI(props: any) {
   const router = useRouter();
-  const children = ["a", "b", "c"];
-  function handleChange(value) {
-    console.log(`selected ${value}`);
-  }
+
   return (
     <>
       <S.WriteUsedItemForm
@@ -24,17 +22,16 @@ export default function UsedItemWriteUI(props: any) {
             <S.FormLeftTitle>Product Info</S.FormLeftTitle>
             <S.InfoWrapper>
               <S.InfoInputBox
-                label="Product Name"
+                placeholder="Product Name"
                 defaultValue={props.isEdit && props.data?.fetchUseditem.name}
                 {...props.register("name")}
                 type="text"
               />
               <S.ErrorText>{props.formState.errors.name?.message}</S.ErrorText>
             </S.InfoWrapper>
-
             <S.InfoWrapper>
               <S.InfoInputBox
-                label="Price"
+                placeholder="Price"
                 defaultValue={props.isEdit && props.data?.fetchUseditem.price}
                 type="number"
                 {...props.register("price")}
@@ -42,18 +39,8 @@ export default function UsedItemWriteUI(props: any) {
               <S.ErrorText>{props.formState.errors.price?.message}</S.ErrorText>
             </S.InfoWrapper>
             <S.InfoWrapper>
-              <Select
-                mode="tags"
-                style={{ width: "100%" }}
-                placeholder="Tags Mode"
-                onChange={handleChange}
-              >
-                {children}
-              </Select>
-            </S.InfoWrapper>
-            <S.InfoWrapper>
               <S.InfoInputBox
-                label="Product Remarks"
+                placeholder="Product Remarks"
                 defaultValue={props.isEdit && props.data?.fetchUseditem.remarks}
                 type="text"
                 {...props.register("remarks")}
@@ -62,13 +49,14 @@ export default function UsedItemWriteUI(props: any) {
                 {props.formState.errors.remarks?.message}
               </S.ErrorText>
             </S.InfoWrapper>
+            <S.InfoWrapper></S.InfoWrapper>
             <S.InfoWrapper>
               <S.ContentsInputBox
-                defaultValue={
-                  props.isEdit && props.data?.fetchUseditem.contents
-                }
-                type="text"
-                {...props.register("contents")}
+                onChange={props.handleChange}
+                // defaultValue={
+                //   props.isEdit && props.data?.fetchUseditem.contents
+                // }
+                value={props.data?.fetchUseditem.contents || ""}
               />
               <S.ErrorText>
                 {props.formState.errors.contents?.message}

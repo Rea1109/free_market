@@ -40,8 +40,6 @@ export default function MarketListUI(props: IMarketListUIProps) {
           ))}
         </S.UsedItemsWrapper>
       </InfiniteScroll>
-
-      <S.UpBtn onClick={() => window.scrollTo(0, 500)}>검색하기</S.UpBtn>
     </>
   );
 }
