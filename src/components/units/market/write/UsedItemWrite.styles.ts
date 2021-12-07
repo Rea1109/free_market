@@ -1,53 +1,43 @@
 import styled from "@emotion/styled";
+import TextField from "@mui/material/TextField";
 
 export const WriteUsedItemForm = styled.form`
   margin-bottom: 10px;
   width: 100%;
-  height: 800px;
+  height: 900px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 `;
 
 export const FormLeft = styled.div`
-  width: 26%;
-  height: 95%;
-  border: 2px solid black;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
+  width: 35%;
+  padding: 15px 20px 20px 20px;
+  height: 98%;
 `;
 
-export const FormLeftHeader = styled.div`
-  background-color: red;
-  width: 100%;
-  height: 30%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
+export const FormLeftTitle = styled.h3`
+  color: #00aec7;
+  font-size: 30px;
+  font-weight: bolder;
+  margin: 0px;
 `;
-
-export const FormInputBody = styled.div`
-  background-color: gold;
+export const FormLeftBody = styled.div`
   width: 100%;
-  height: 70%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 `;
 
 export const FormRight = styled.div`
-  width: 66%;
+  width: 45%;
   height: 95%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  border-radius: 10px;
 `;
 
 export const BtnBottom = styled.div`
@@ -59,15 +49,21 @@ export const BtnBottom = styled.div`
 `;
 
 export const SumbmitBtn = styled.button`
-  width: 15%;
+  width: 100px;
   height: 30px;
-  background-color: yellow;
+  border: none;
+  border-radius: 5px;
+  background-color: #00b6d8;
+  color: white;
 `;
 
 export const ClickBtn = styled.button`
-  width: 15%;
+  width: 100px;
   height: 30px;
-  background-color: yellow;
+  border: none;
+  border-radius: 5px;
+  background-color: transparent;
+  color: black;
 `;
 
 export const ImageForm = styled.div`
@@ -86,13 +82,28 @@ export const MapForm = styled.div`
   height: 70%;
 `;
 
-export const InfoInputBox1 = styled.input`
-  width: 66%;
-  height: 62px;
-`;
-
-export const InfoInputBox2 = styled.textarea`
-  width: 66%;
+export const ContentsInputBox = styled.textarea`
+  width: 90%;
   height: 300px;
   resize: none;
+  padding: 20px;
+  border: 1px solid #c4c4c4;
+  border-radius: 5px;
+`;
+
+export const InfoInputBox = styled(TextField)`
+  width: 90%;
+`;
+
+export const ErrorText = styled.div`
+  font-size: 10px;
+  color: red;
+  overflow: hidden;
+`;
+
+export const InfoWrapper = styled.div`
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;

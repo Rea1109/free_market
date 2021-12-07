@@ -10,8 +10,8 @@ import { useContext } from "react";
 import { GlobalContext } from "../../../../../pages/_app";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
 import { Modal } from "antd";
+import { useRouter } from "next/router";
 
 const schema = yup.object().shape({
   email: yup.string().email("check email").required("check email"),
@@ -69,16 +69,24 @@ export default function Login() {
       Modal.success({
         title: `Hi ${resultUserInfo.data.fetchUserLoggedIn.name} !`,
       });
-      router.push("/");
+
+      const baskets = JSON.parse(localStorage.getItem("basket") || "[]");
+      if (baskets.length) {
+        const result = confirm(
+          "장바구니에 담으신 상품이 있습니다. 장바구니 페이지로 이동할까요?"
+        );
+        if (result) router.push("/market/basket");
+      }
     } catch (error) {
       error instanceof Error && Modal.error({ title: error.message });
     }
   };
 
   const onClickLogOut = () => {
-    // Modal.success({ title: "see you soon" });
+    Modal.success({ title: "see you soon" });
     localStorage.removeItem("userInfo");
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("basket");
     location.reload();
   };
 

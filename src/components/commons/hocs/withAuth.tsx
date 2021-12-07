@@ -8,7 +8,7 @@ export const withAuth = (Component) => (props) => {
 
   useEffect(() => {
     if (!localStorage.getItem("accessToken")) {
-      Modal.warning({ title: "로그인을 먼저 해주세요." });
+      Modal.warning({ title: "로그인이 필요한 페이지 입니다." });
       router.push("/");
     }
   }, []);

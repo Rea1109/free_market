@@ -10,6 +10,7 @@ import "antd/dist/antd.css";
 import { AppProps } from "next/dist/shared/lib/router/router";
 import { createUploadLink } from "apollo-upload-client";
 import Layout from "../src/components/commons/layout";
+import Head from "next/head";
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -65,10 +66,8 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken") || "";
-
+    const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
     if (accessToken) {
-      const userInfo = JSON.parse(localStorage.getItem("userInfo") || "");
-
       setAccessToken(accessToken);
       setUserInfo(userInfo);
       setIsLogin((prev) => !prev);
@@ -88,6 +87,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     <GlobalContext.Provider value={globarState}>
       <ApolloProvider client={client}>
         <Global styles={globalStyles} />
+        <Head>
+          <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+          <script
+            type="text/javascript"
+            src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_KEY}`}
+          ></script>
+        </Head>
         <Layout>
           <Component {...pageProps} />
         </Layout>

@@ -16,31 +16,31 @@ export default function Uploads(props: any) {
   };
 
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
-    if (uploadImages.length > 2) {
-      alert("최대 3개 등록 가능");
-      return;
+    if (props.isEdit) {
+      alert("이미지 수정 진행중");
+    } else {
+      if (uploadImages.length > 2) {
+        alert("최대 3개 등록 가능");
+        return;
+      }
+      const file = checkValidationImage(event.target.files?.[0]);
+      if (!file) return;
+      const result = await uploadFile({
+        variables: { file },
+      });
+      setUploadImages((prev) => [...prev, result.data.uploadFile.url]);
+      props.setImages((prev: []) => [...prev, result.data.uploadFile.url]);
     }
-    const file = checkValidationImage(event.target.files?.[0]);
-    if (!file) return;
-    const result = await uploadFile({
-      variables: { file },
-    });
-    setUploadImages((prev) => [...prev, result.data.uploadFile.url]);
-    props.setImages((prev: []) => [...prev, result.data.uploadFile.url]);
   };
 
-  const onClickDelete = (idx: number) => () => {
-    alert("삭제");
-    console.log(uploadImages[idx]);
-    console.log(uploadImages);
-  };
   return (
     <UploadsUI
       onChangeFile={onChangeFile}
       uploadImages={uploadImages}
       onClickAddImage={onClickAddImage}
       fileRef={fileRef}
-      onClickDelete={onClickDelete}
+      isEdit={props.isEdit}
+      data={props.data}
     />
   );
 }

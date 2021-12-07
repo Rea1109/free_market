@@ -87,7 +87,7 @@ export const SumbitBtn = styled.button`
   height: 30px;
   border: none;
   border-radius: 5px;
-  background-color: #fdb825;
+  background-color: #00b6d8;
   color: white;
 `;
 

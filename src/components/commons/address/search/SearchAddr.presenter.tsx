@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import * as S from "./SearchAddr.styles";
-import Head from "next/head";
+// import Head from "next/head";
 
 declare const window: Window &
   typeof globalThis & {
@@ -91,33 +91,28 @@ export default function SearchAddrUI(props: any) {
   }, []);
 
   return (
-    <>
-      <Head>
-        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-        <script
-          type="text/javascript"
-          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7b7bd68bba98dd72e7204e4be68eaab0&libraries=services"
-        ></script>
-      </Head>
-      <S.AddressTitle>Search Address</S.AddressTitle>
+    <S.MapWrapper>
+      <S.AddressTitle>Location</S.AddressTitle>
       <S.Map id="map" />
+
       <S.AddrInfoWrapper>
-        <S.AddressInputBox
-          type="text"
-          placeholder="주소"
-          value={address}
-          readOnly
-        />
-        <S.AddressInputBox
+        <S.ZipcodeBox
           type="text"
           placeholder="우편번호"
           value={zipcode}
           readOnly
         />
+        <S.AddreessBox
+          type="text"
+          placeholder="주소"
+          value={address}
+          readOnly
+        />
+        <S.AddressDetailBox type="text" placeholder="상세 주소" />
         <S.SearchAddrBtn type="button" onClick={onClickSearchAddr}>
           주소 검색
         </S.SearchAddrBtn>
       </S.AddrInfoWrapper>
-    </>
+    </S.MapWrapper>
   );
 }
