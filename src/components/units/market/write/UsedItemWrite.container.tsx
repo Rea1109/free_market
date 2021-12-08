@@ -24,10 +24,11 @@ export default function UsedItemWrite(props: any) {
   const [createUsedItem] = useMutation(CREATE_USED_ITEM);
   const [updateUsedItem] = useMutation(UPDATE_USED_ITEM);
 
-  const { handleSubmit, register, setValue, trigger, formState } = useForm({
-    mode: "onChange",
-    resolver: yupResolver(schema),
-  });
+  const { handleSubmit, register, setValue, trigger, formState, getValues } =
+    useForm({
+      mode: "onChange",
+      resolver: yupResolver(schema),
+    });
 
   const handleChange = (value: string) => {
     console.log(value);
@@ -98,6 +99,7 @@ export default function UsedItemWrite(props: any) {
       data={props.data}
       onClickUpdate={onClickUpdate}
       handleChange={handleChange}
+      getValues={getValues}
     />
   );
 }

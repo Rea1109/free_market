@@ -1,6 +1,7 @@
 import * as S from "./MarketList.styles";
 import InfiniteScroll from "react-infinite-scroller";
 import { IMarketListUIProps } from "./MarketList.types";
+import { changeUrl } from "../../../../commons/libraries/utils";
 
 export default function MarketListUI(props: IMarketListUIProps) {
   return (
@@ -12,11 +13,16 @@ export default function MarketListUI(props: IMarketListUIProps) {
       <S.BestWrapper>
         {props.bestUsedItems?.fetchUseditemsOfTheBest.map((el) => (
           <S.BestItemCard key={el._id}>
+            <S.ItemImg
+              src={changeUrl(el.images?.[0] || "")}
+              onError={props.handleErrorImg}
+            />
             <S.Info onClick={props.onClickGetItem(el._id)}>{el.name}</S.Info>
-            <S.Info>{el.remarks}</S.Info>
-            <S.Info>{el.contents}</S.Info>
-            <S.Info>{el.price}</S.Info>
-            <button onClick={props.onClickBasket(el)}>장바구니</button>
+            <S.Info>₩ {el.price}</S.Info>
+            <S.BasketIcon
+              src="/images/market/cart.png"
+              onClick={props.onClickBasket(el)}
+            />
           </S.BestItemCard>
         ))}
       </S.BestWrapper>
@@ -26,15 +32,18 @@ export default function MarketListUI(props: IMarketListUIProps) {
           {props.usedItems?.fetchUseditems.map((el) => (
             <S.ItemCardWrapper key={el._id}>
               <S.ItemCard>
-                <S.Info>{el.images?.[0] || "노이미지"}</S.Info>
+                <S.ItemImg
+                  src={changeUrl(el.images?.[0] || "")}
+                  onError={props.handleErrorImg}
+                />
                 <S.Info onClick={props.onClickGetItem(el._id)}>
                   {el.name}
                 </S.Info>
-                <S.Info>{el.remarks}</S.Info>
-                <S.Info>{el.contents}</S.Info>
-                <S.Info>{el.price}</S.Info>
-                <S.Info>{el.useditemAddress?.address || "주소없음"}</S.Info>
-                <button onClick={props.onClickBasket(el)}>장바구니</button>
+                <S.Info>₩ {el.price}</S.Info>
+                <S.BasketIcon
+                  src="/images/market/cart.png"
+                  onClick={props.onClickBasket(el)}
+                />
               </S.ItemCard>
             </S.ItemCardWrapper>
           ))}

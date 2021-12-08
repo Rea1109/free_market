@@ -7,6 +7,7 @@ import {
 } from "../../../../commons/types/generated/types";
 import { useQuery } from "@apollo/client";
 import { FETCH_USED_ITEMS, FETCH_USED_ITEMS_BEST } from "./MarketList.queries";
+import { SyntheticEvent } from "react";
 
 export default function MarketList() {
   const router = useRouter();
@@ -60,6 +61,10 @@ export default function MarketList() {
 
   console.log(usedItems);
 
+  const handleErrorImg = (event: SyntheticEvent) => {
+    event.target.src = "/images/commons/noimage.jpg";
+  };
+
   return (
     <MarketListUI
       bestUsedItems={bestUsedItems}
@@ -70,6 +75,7 @@ export default function MarketList() {
       onClickGetItem={(id) => () => {
         router.push(`/market/${id}`);
       }}
+      handleErrorImg={handleErrorImg}
     />
   );
 }

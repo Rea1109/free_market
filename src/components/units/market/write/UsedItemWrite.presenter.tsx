@@ -3,8 +3,6 @@ import SearchAddr from "../../../commons/address/search/SearchAddr.container";
 import Uploads from "../../../commons/uploads/Uploads.container";
 import * as S from "./UsedItemWrite.styles";
 
-import "react-quill/dist/quill.snow.css";
-
 export default function UsedItemWriteUI(props: any) {
   const router = useRouter();
 
@@ -51,13 +49,18 @@ export default function UsedItemWriteUI(props: any) {
             </S.InfoWrapper>
             <S.InfoWrapper></S.InfoWrapper>
             <S.InfoWrapper>
-              <S.ContentsInputBox
-                onChange={props.handleChange}
-                // defaultValue={
-                //   props.isEdit && props.data?.fetchUseditem.contents
-                // }
-                value={props.data?.fetchUseditem.contents || ""}
-              />
+              {props.isEdit ? (
+                <S.ContentsInputBox
+                  onChange={props.handleChange}
+                  value={
+                    props.getValues("contents") ||
+                    props.data?.fetchUseditem.contents
+                  }
+                />
+              ) : (
+                <S.ContentsInputBox onChange={props.handleChange} />
+              )}
+
               <S.ErrorText>
                 {props.formState.errors.contents?.message}
               </S.ErrorText>

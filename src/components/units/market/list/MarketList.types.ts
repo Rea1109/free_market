@@ -1,4 +1,5 @@
 import { IQuery, IUseditem } from "../../../../commons/types/generated/types";
+import { SyntheticEvent } from "react";
 
 export interface IMarketListUIProps {
   onLoad: () => void;
@@ -7,4 +8,5 @@ export interface IMarketListUIProps {
   usedItems?: Pick<IQuery, "fetchUseditems">;
   onClickBasket: (el: IUseditem) => () => void;
   onClickGetItem: (id: string) => () => void;
+  handleErrorImg: (event: SyntheticEvent) => void;
 }

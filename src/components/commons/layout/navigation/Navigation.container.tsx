@@ -3,7 +3,6 @@ import NavigationUI from "./Navigation.presenter";
 
 export default function Navigation() {
   const router = useRouter();
-
   const onClickMove = (page: string) => () => {
     router.push(page);
   };
