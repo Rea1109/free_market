@@ -1,4 +1,4 @@
-import { IQuery, IUseditem } from "../../../../commons/types/generated/types";
+import { IQuery } from "../../../../commons/types/generated/types";
 import { SyntheticEvent } from "react";
 
 export interface IMarketListUIProps {
@@ -6,7 +6,6 @@ export interface IMarketListUIProps {
   onMoveMarketNew: () => void;
   bestUsedItems?: Pick<IQuery, "fetchUseditemsOfTheBest">;
   usedItems?: Pick<IQuery, "fetchUseditems">;
-  onClickBasket: (el: IUseditem) => () => void;
   onClickGetItem: (id: string) => () => void;
   handleErrorImg: (event: SyntheticEvent) => void;
 }

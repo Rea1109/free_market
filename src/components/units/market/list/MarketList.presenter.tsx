@@ -19,35 +19,36 @@ export default function MarketListUI(props: IMarketListUIProps) {
             />
             <S.Info onClick={props.onClickGetItem(el._id)}>{el.name}</S.Info>
             <S.Info>₩ {el.price}</S.Info>
-            <S.BasketIcon
-              src="/images/market/cart.png"
-              onClick={props.onClickBasket(el)}
-            />
           </S.BestItemCard>
         ))}
       </S.BestWrapper>
       <S.SearchBar>search bar</S.SearchBar>
       <InfiniteScroll pageStart={0} loadMore={props.onLoad} hasMore={true}>
-        <S.UsedItemsWrapper>
-          {props.usedItems?.fetchUseditems.map((el) => (
-            <S.ItemCardWrapper key={el._id}>
-              <S.ItemCard>
-                <S.ItemImg
-                  src={changeUrl(el.images?.[0] || "")}
-                  onError={props.handleErrorImg}
-                />
-                <S.Info onClick={props.onClickGetItem(el._id)}>
-                  {el.name}
-                </S.Info>
-                <S.Info>₩ {el.price}</S.Info>
-                <S.BasketIcon
-                  src="/images/market/cart.png"
-                  onClick={props.onClickBasket(el)}
-                />
-              </S.ItemCard>
-            </S.ItemCardWrapper>
-          ))}
-        </S.UsedItemsWrapper>
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <S.UsedItemsWrapper>
+            {props.usedItems?.fetchUseditems.map((el) => (
+              <S.ItemCardWrapper key={el._id}>
+                <S.ItemCard key={el._id}>
+                  <S.ItemImg
+                    src={changeUrl(el.images?.[0] || "")}
+                    onError={props.handleErrorImg}
+                  />
+                  <S.Info onClick={props.onClickGetItem(el._id)}>
+                    {el.name}
+                  </S.Info>
+                  <S.Info>₩ {el.price}</S.Info>
+                </S.ItemCard>
+              </S.ItemCardWrapper>
+            ))}
+          </S.UsedItemsWrapper>
+        </div>
       </InfiniteScroll>
     </>
   );

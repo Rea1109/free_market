@@ -27,7 +27,7 @@ export const AddrInfoWrapper = styled.div`
 `;
 
 export const ZipcodeBox = styled.input`
-  width: 15%;
+  width: 10%;
   height: 40px;
   text-align: center;
   border: 2px solid #cacaca;
@@ -35,7 +35,7 @@ export const ZipcodeBox = styled.input`
 `;
 
 export const AddreessBox = styled.input`
-  width: 30%;
+  width: 40%;
   height: 40px;
   padding: 20px;
   border: 2px solid #cacaca;

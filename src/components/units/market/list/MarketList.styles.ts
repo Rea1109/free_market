@@ -9,10 +9,11 @@ export const ListHeader = styled.div`
 `;
 
 export const BestWrapper = styled.div`
-  width: 100%;
+  width: 90%;
   height: 400px;
   display: flex;
   justify-content: space-evenly;
+  border: 1px solid black;
 `;
 
 export const SearchBar = styled.div`
@@ -21,10 +22,11 @@ export const SearchBar = styled.div`
 `;
 
 export const UsedItemsWrapper = styled.div`
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-wrap: wrap;
-  overflow: auto;
+  /* overflow: auto; */
+  border: 1px solid black;
 `;
 
 export const BestItemCard = styled.div`
@@ -34,9 +36,10 @@ export const BestItemCard = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
-  border: none;
+  border: 1px solid black;
+  /* border: none;
   border-radius: 15px;
-  box-shadow: 0px 0px 5px gray;
+  box-shadow: 0px 0px 5px gray; */
   overflow: hidden;
 `;
 
@@ -50,8 +53,8 @@ export const ItemCardWrapper = styled.div`
   width: 20%;
   height: 400px;
   display: flex;
-  flex-direction: column;
   padding: 30px 0px 30px 30px;
+  border: 1px solid black;
 `;
 export const ItemCard = styled.div`
   width: 90%;
@@ -60,9 +63,9 @@ export const ItemCard = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0px 0px 5px gray;
+  border: 1px solid black;
+  /* border-radius: 15px;
+  box-shadow: 0px 0px 5px gray; */
   overflow: hidden;
 `;
 
@@ -81,12 +84,8 @@ export const AddBtn = styled.button`
 export const ItemImg = styled.img`
   width: 100%;
   height: 55%;
-`;
-
-export const BasketIcon = styled.img`
-  width: 50px;
-  height: 50px;
-  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
 `;
 
 export const AddBasket = styled.button`

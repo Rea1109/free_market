@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import {
   IQuery,
   IQueryFetchUseditemsArgs,
-  IUseditem,
 } from "../../../../commons/types/generated/types";
 import { useQuery } from "@apollo/client";
 import { FETCH_USED_ITEMS, FETCH_USED_ITEMS_BEST } from "./MarketList.queries";
@@ -41,28 +40,8 @@ export default function MarketList() {
     });
   };
 
-  const onClickBasket = (el: IUseditem) => () => {
-    const baskets = JSON.parse(localStorage.getItem("basket") || "[]");
-    let isExists = false;
-    baskets.forEach((basketEl: IUseditem) => {
-      if (el._id === basketEl._id) isExists = true;
-    });
-
-    if (isExists) {
-      alert("이미 담겨져 있습니다.");
-      return;
-    }
-
-    const { __typename, ...newEl } = el;
-    baskets.push(newEl);
-
-    localStorage.setItem("basket", JSON.stringify(baskets));
-  };
-
-  console.log(usedItems);
-
   const handleErrorImg = (event: SyntheticEvent) => {
-    event.target.src = "/images/commons/noimage.jpg";
+    event.target.src = "/images/commons/error-image.jpg";
   };
 
   return (
@@ -71,7 +50,6 @@ export default function MarketList() {
       usedItems={usedItems}
       onLoad={onLoad}
       onMoveMarketNew={() => router.push("/market/new")}
-      onClickBasket={onClickBasket}
       onClickGetItem={(id) => () => {
         router.push(`/market/${id}`);
       }}
