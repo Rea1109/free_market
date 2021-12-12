@@ -70,7 +70,7 @@ export default function CommentListUIItem(props: ICommentListUIItem) {
       {!isEdit && (
         <S.CommentList>
           <S.Comment>
-            <S.WriterImg src="/images/board/profile.png" />
+            <S.WriterImg src="/images/boards/list/profile.png" />
             <S.CommentInner>
               <S.CommentHead>
                 <S.CommnetWriterLabel>{props.el.writer}</S.CommnetWriterLabel>
@@ -86,11 +86,14 @@ export default function CommentListUIItem(props: ICommentListUIItem) {
           </S.Comment>
           <S.CommnetMenu>
             <S.MenuBtn>
-              <S.MenuImg src="/images/board/pen.png" onClick={onClickUpdate} />
+              <S.MenuImg
+                src="/images/comment/pen.png"
+                onClick={onClickUpdate}
+              />
             </S.MenuBtn>
             <S.MenuBtn>
               <S.MenuImg
-                src="/images/board/delete.png"
+                src="/images/comment/delete.png"
                 onClick={onClickDelete}
               />
             </S.MenuBtn>

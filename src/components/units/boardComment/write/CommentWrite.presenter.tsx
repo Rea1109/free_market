@@ -24,7 +24,7 @@ export default function CommentWriteUI(props: ICommentWriterUI) {
       <S.CommentWrapper>
         {!props.isEdit && (
           <S.Head>
-            <S.HeadImg src="/images/board/comment.png" />
+            <S.HeadImg src="/images/comment/comment.png" />
             <S.HeadLable>댓글</S.HeadLable>
           </S.Head>
         )}

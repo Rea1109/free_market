@@ -11,7 +11,7 @@ export default function BoardGetUI(props: IBoardGetUIProps) {
       <S.BoardWrapper>
         <S.HeadWrapper>
           <S.Profile>
-            <S.PhotoIcon src="/images/board/profile.png" />
+            <S.PhotoIcon src="/images/boards/list/profile.png" />
             <S.Name>
               <S.Maintext>{props.data?.fetchBoard.writer}</S.Maintext>
               <S.Subtext>
@@ -22,24 +22,24 @@ export default function BoardGetUI(props: IBoardGetUIProps) {
           <S.HeadMenu>
             {props.data?.fetchBoard.youtubeUrl && (
               <Tooltip title={props.data?.fetchBoard.youtubeUrl}>
-                <S.AddFileIcon src="/images/board/addFile.png" />
+                <S.AddFileIcon src="/images/boards/get/link.png" />
               </Tooltip>
             )}
 
             {!props.data?.fetchBoard.youtubeUrl && (
               <Tooltip title="등록된 링크가 없습니다.">
-                <S.AddFileIcon src="/images/board/addFile.png" />
+                <S.AddFileIcon src="/images/boards/get/link.png" />
               </Tooltip>
             )}
 
             {props.data?.fetchBoard.boardAddress?.address && (
               <Tooltip title={props.data?.fetchBoard.boardAddress?.address}>
-                <S.AddrIcon src="/images/board/location.png" />
+                <S.AddrIcon src="/images/boards/get/location.png" />
               </Tooltip>
             )}
             {!props.data?.fetchBoard.boardAddress?.address && (
               <Tooltip title="등록된 주소가 없습니다.">
-                <S.AddrIcon src="/images/board/location.png" />
+                <S.AddrIcon src="/images/boards/get/location.png" />
               </Tooltip>
             )}
           </S.HeadMenu>
@@ -99,14 +99,14 @@ export default function BoardGetUI(props: IBoardGetUIProps) {
           <S.Like>
             <S.LikeImg
               onClick={props.onClickLike}
-              src="/images/board/like.png"
+              src="/images/boards/list/like.png"
             />
             <S.LikeCount>{props.data?.fetchBoard.likeCount}</S.LikeCount>
           </S.Like>
           <S.Like>
             <S.LikeImg
               onClick={props.onClickDislike}
-              src={"/images/board/dislike.png"}
+              src={"/images/boards/get/dislike.png"}
             />
             <S.DisLikeCount>
               {props.data?.fetchBoard.dislikeCount}

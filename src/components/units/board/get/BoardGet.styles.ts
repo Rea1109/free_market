@@ -8,7 +8,6 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: #fcfbfb;
 `;
 
 export const BoardWrapper = styled.div`
