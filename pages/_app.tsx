@@ -45,8 +45,6 @@ interface IGlobalContext {
     picture?: string;
   };
   setUserInfo?: Dispatch<SetStateAction<{}>>;
-  isLogin?: boolean;
-  setIsLogin?: Dispatch<SetStateAction<boolean>>;
 }
 
 // Initialize Firebase
@@ -67,13 +65,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   };
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken") || "";
+    if (localStorage.getItem("refreshToken")) getAccessToken(setAccessToken);
     const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
-    if (accessToken) {
-      setAccessToken(accessToken);
-      setUserInfo(userInfo);
-      setIsLogin((prev) => !prev);
-    }
+    setUserInfo(userInfo);
   }, []);
 
   const errorLink = onError(({ graphQLErrors, operation, forward }) => {
@@ -96,6 +90,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const uploadLink = createUploadLink({
     uri: "http://backend04.codebootcamp.co.kr/graphql",
     headers: { authorization: `Bearer ${accessToken}` },
+    credentials: "include",
   });
 
   const client = new ApolloClient({

@@ -36,12 +36,12 @@ export default function MainUI(props: IMainUIProps) {
           <S.BoardMenu onClick={props.onMoveBoard}>
             <S.MenuLabel>Free Board</S.MenuLabel>
           </S.BoardMenu>
-          <S.MarketMenu onClick={props.onMobeMarket}>
+          <S.MarketMenu onClick={props.onMoveMarket}>
             <S.MenuLabel>Market</S.MenuLabel>
           </S.MarketMenu>
         </S.SubWrapperLeft>
         <S.GuestBookMenu>
-          <S.MenuLabel style={{ color: "black" }}>Guest Book</S.MenuLabel>
+          <S.MenuLabel style={{ color: "black" }}>My Page</S.MenuLabel>
         </S.GuestBookMenu>
       </S.MainWrapper>
       <S.MainWrapper>

@@ -27,7 +27,7 @@ export default function Login() {
   const router = useRouter();
   const client = useApolloClient();
 
-  const { setAccessToken, setUserInfo, setIsLogin, isLogin, userInfo } =
+  const { setAccessToken, setUserInfo, accessToken, userInfo } =
     useContext(GlobalContext);
 
   const [loginUser] = useMutation<
@@ -49,9 +49,8 @@ export default function Login() {
         },
       });
       const accessToken = result.data?.loginUser.accessToken;
-      localStorage.setItem("accessToken", accessToken || "");
+      localStorage.setItem("refreshToken", "true");
       setAccessToken?.(accessToken || "");
-      setIsLogin?.(true);
 
       const resultUserInfo = await client.query({
         query: FETCH_USER_LOGGED_IN,
@@ -85,7 +84,7 @@ export default function Login() {
   const onClickLogOut = () => {
     Modal.success({ title: "see you soon" });
     localStorage.removeItem("userInfo");
-    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     localStorage.removeItem("basket");
     location.reload();
   };
@@ -101,7 +100,7 @@ export default function Login() {
       onClickLogin={onClickLogin}
       register={register}
       formState={formState}
-      isLogin={isLogin}
+      accessToken={accessToken}
       userInfo={userInfo}
       onClickLogOut={onClickLogOut}
       onMoveSignUp={onMoveSignUp}

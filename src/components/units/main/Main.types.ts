@@ -10,5 +10,5 @@ export interface IWeatherInfo {
 export interface IMainUIProps {
   weatherInfo: IWeatherInfo;
   onMoveBoard: () => void;
-  onMobeMarket: () => void;
+  onMoveMarket: () => void;
 }

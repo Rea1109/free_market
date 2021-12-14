@@ -34,7 +34,7 @@ export default function Main() {
   return (
     <MainUI
       onMoveBoard={() => router.push("/boards")}
-      onMobeMarket={() => router.push("/market")}
+      onMoveMarket={() => router.push("/market")}
       weatherInfo={weatherInfo}
     />
   );

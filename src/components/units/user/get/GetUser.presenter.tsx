@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { Fragment } from "react";
 
 export default function GetUserUI(props: any) {
   return (
@@ -19,8 +20,18 @@ export default function GetUserUI(props: any) {
         <span>{props.data?.fetchUserLoggedIn.email}</span> <br />
         <span>{props.data?.fetchUserLoggedIn.userPoint.amount}</span>
         <br />
-        <button onClick={props.onClickPayMent}>충전하기</button>
       </div>
+      <div>
+        <h3>찜한 상품</h3>
+        {props.pickedItems?.fetchUseditemsIPicked.map((item: any) => (
+          <Fragment key={item._id}>
+            <span>{item.name} </span>
+            <span> {item.price}</span>
+            <br />
+          </Fragment>
+        ))}
+      </div>
+      <button onClick={props.onClickPayMent}>충전하기</button>
     </>
   );
 }

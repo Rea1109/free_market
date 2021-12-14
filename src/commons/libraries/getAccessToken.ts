@@ -11,7 +11,7 @@ const RESTORE_ACCESS_TOKEN = gql`
 `;
 
 export async function getAccessToken(
-  setMyAccessToken: Dispatch<SetStateAction<string>>
+  setAccessToken: Dispatch<SetStateAction<string>>
 ) {
   try {
     const graphQLClient = new GraphQLClient(
@@ -20,7 +20,7 @@ export async function getAccessToken(
     );
     const result = await graphQLClient.request(RESTORE_ACCESS_TOKEN);
     const newAccessToken = result.restoreAccessToken.accessToken;
-    setMyAccessToken(newAccessToken);
+    setAccessToken(newAccessToken);
     return newAccessToken;
   } catch (error) {
     error instanceof Error && console.log(error.message);

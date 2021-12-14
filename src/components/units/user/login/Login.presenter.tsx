@@ -2,10 +2,9 @@ import * as S from "./Login.styles";
 // import { ILoginUIProps } from "./Login.types";
 
 export default function LoginUI(props: any) {
-  console.log(props.userInfo);
   return (
     <S.LoginMenuForm onSubmit={props.handleSubmit(props.onClickLogin)}>
-      {props.isLogin ? (
+      {props.accessToken ? (
         <S.LogedWrapper>
           <S.Profile></S.Profile>
           <S.ProfileInfoWrapper>

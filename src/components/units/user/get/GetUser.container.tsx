@@ -1,31 +1,17 @@
-import { useQuery, gql, useMutation } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { Modal } from "antd";
 import {
   IMutation,
   IMutationCreatePointTransactionOfLoadingArgs,
   IQuery,
+  IQueryFetchUseditemsIPickedArgs,
 } from "../../../../commons/types/generated/types";
 import GetUserUI from "./GetUser.presenter";
-import { FETCH_USER_LOGGED_IN } from "./GetUser.queries";
-
-const CREATE_POINT_TRANSACTION_OF_LOADING = gql`
-  mutation createPointTransactionOfLoading($impUid: ID!) {
-    createPointTransactionOfLoading(impUid: $impUid) {
-      _id
-      impUid
-      amount
-      balance
-      status
-      statusDetail
-      useditem {
-        name
-        price
-        remarks
-        contents
-      }
-    }
-  }
-`;
+import {
+  FETCH_USER_LOGGED_IN,
+  CREATE_POINT_TRANSACTION_OF_LOADING,
+  FETCH_USED_ITEMS_IPICKED,
+} from "./GetUser.queries";
 
 declare const window: Window &
   typeof globalThis & {
@@ -35,7 +21,15 @@ declare const window: Window &
 export default function GetUser() {
   const { data } =
     useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
-  console.log(data);
+
+  const { data: pickedItems } = useQuery<
+    Pick<IQuery, "fetchUseditemsIPicked">,
+    IQueryFetchUseditemsIPickedArgs
+  >(FETCH_USED_ITEMS_IPICKED, {
+    variables: {
+      search: "",
+    },
+  });
 
   const [chargePoint] = useMutation<
     Pick<IMutation, "createPointTransactionOfLoading">,
@@ -80,5 +74,11 @@ export default function GetUser() {
       }
     );
   };
-  return <GetUserUI data={data} onClickPayMent={onClickPayMent} />;
+  return (
+    <GetUserUI
+      data={data}
+      pickedItems={pickedItems}
+      onClickPayMent={onClickPayMent}
+    />
+  );
 }

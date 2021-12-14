@@ -8,7 +8,6 @@ export default function UsedItemGetUI(props: any) {
       <div>상품 상세 정보 페이지</div>
       <div> 상품명 : {props.data?.fetchUseditem.name}</div>
       <div> 가격 : {props.data?.fetchUseditem.price}</div>
-      {/* <div> 상품설명 : {props.data?.fetchUseditem.contents}</div> */}
       상품설명 :
       {process.browser ? (
         <div
@@ -31,6 +30,7 @@ export default function UsedItemGetUI(props: any) {
       <div> lat : {props.data?.fetchUseditem.useditemAddress?.lat}</div>
       <div> lng : {props.data?.fetchUseditem.useditemAddress?.lng}</div>
       <div> 아이디 : {props.data?.fetchUseditem._id}</div>
+      <div> 찜하기 수 : {props.data?.fetchUseditem.pickedCount}</div>
       <GetMap data={props.data} />
       <button onClick={props.onClickPurchase(props.data?.fetchUseditem._id)}>
         구매하기
@@ -40,6 +40,9 @@ export default function UsedItemGetUI(props: any) {
       </button>
       <button onClick={props.onClickBasket(props.data?.fetchUseditem)}>
         장바구니
+      </button>
+      <button onClick={props.onClickPick(props.data?.fetchUseditem._id)}>
+        찜하기
       </button>
     </>
   );
