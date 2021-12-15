@@ -10,6 +10,5 @@ export default function UpdateUsedItemPage() {
       useditemId: router.query.usedItemId,
     },
   });
-  console.log(data);
   return <UsedItemWrite isEdit={true} data={data} />;
 }

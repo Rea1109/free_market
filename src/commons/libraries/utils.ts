@@ -30,3 +30,7 @@ export function getTemp(temp: string) {
 export function changeUrl(url: string) {
   return `https://storage.googleapis.com/${url}`;
 }
+
+export function replacePrice(number: string) {
+  return number.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " (원)";
+}

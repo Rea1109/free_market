@@ -22,7 +22,7 @@ export default function UsedItemGetUI(props: any) {
       )}
       <div> 한줄소개 : {props.data?.fetchUseditem.remarks}</div>
       <div>
-        이미지 :{" "}
+        이미지 :
         {props.data?.fetchUseditem.images.map((el: any) => changeUrl(el))}
       </div>
       <div>우편번호 : {props.data?.fetchUseditem.useditemAddress?.zipcode}</div>
@@ -32,18 +32,26 @@ export default function UsedItemGetUI(props: any) {
       <div> 아이디 : {props.data?.fetchUseditem._id}</div>
       <div> 찜하기 수 : {props.data?.fetchUseditem.pickedCount}</div>
       <GetMap data={props.data} />
-      <button onClick={props.onClickPurchase(props.data?.fetchUseditem._id)}>
-        구매하기
-      </button>
-      <button onClick={props.onClickEdit(props.data?.fetchUseditem._id)}>
-        수정하기
-      </button>
-      <button onClick={props.onClickBasket(props.data?.fetchUseditem)}>
-        장바구니
-      </button>
-      <button onClick={props.onClickPick(props.data?.fetchUseditem._id)}>
-        찜하기
-      </button>
+      {props.data?.fetchUseditem.seller?._id ===
+      props.userInfo?.fetchUserLoggedIn._id ? (
+        <button onClick={props.onClickEdit(props.data?.fetchUseditem._id)}>
+          수정하기
+        </button>
+      ) : (
+        <>
+          <button
+            onClick={props.onClickPurchase(props.data?.fetchUseditem._id)}
+          >
+            구매하기
+          </button>
+          <button onClick={props.onClickBasket(props.data?.fetchUseditem)}>
+            장바구니
+          </button>
+          <button onClick={props.onClickPick(props.data?.fetchUseditem._id)}>
+            찜하기
+          </button>
+        </>
+      )}
     </>
   );
 }

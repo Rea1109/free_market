@@ -29,8 +29,6 @@ export default function AnswerList(props: any) {
     variables: { useditemQuestionId: String(props.questionId) },
   });
 
-  console.log(data?.fetchUseditemQuestionAnswers);
-
   return (
     <div style={{ border: "2px solid gold" }}>
       <h3>답글목록</h3>

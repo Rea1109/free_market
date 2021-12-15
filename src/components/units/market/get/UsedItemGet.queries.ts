@@ -54,3 +54,13 @@ export const TOGGLE_USED_ITEM_PICK = gql`
     toggleUseditemPick(useditemId: $useditemId)
   }
 `;
+
+export const FETCH_USER_LOGGED_IN = gql`
+  query fetchUserLoggedIn {
+    fetchUserLoggedIn {
+      _id
+      email
+      name
+    }
+  }
+`;

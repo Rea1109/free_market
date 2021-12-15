@@ -5,9 +5,14 @@ import {
   FETCH_USED_ITEM,
   CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING,
   TOGGLE_USED_ITEM_PICK,
+  FETCH_USER_LOGGED_IN,
 } from "./UsedItemGet.queries";
 import { Modal } from "antd";
-import { IUseditem } from "../../../../commons/types/generated/types";
+import {
+  IQuery,
+  IQueryFetchUseditemArgs,
+  IUseditem,
+} from "../../../../commons/types/generated/types";
 
 export default function UsedItemGet() {
   const router = useRouter();
@@ -15,12 +20,15 @@ export default function UsedItemGet() {
   const [purchaseUsedItem] = useMutation(
     CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING
   );
-
   const [toggleUseditemPick] = useMutation(TOGGLE_USED_ITEM_PICK);
 
-  const { data, refetch } = useQuery(FETCH_USED_ITEM, {
+  const { data: userInfo } = useQuery(FETCH_USER_LOGGED_IN);
+  const { data, refetch } = useQuery<
+    Pick<IQuery, "fetchUseditem">,
+    IQueryFetchUseditemArgs
+  >(FETCH_USED_ITEM, {
     variables: {
-      useditemId: router.query.usedItemId,
+      useditemId: String(router.query.usedItemId),
     },
   });
 
@@ -78,6 +86,7 @@ export default function UsedItemGet() {
   return (
     <UsedItemGetUI
       data={data}
+      userInfo={userInfo}
       onClickEdit={() => () =>
         router.push(`/market/${data?.fetchUseditem._id}/edit`)}
       onClickPurchase={onClickPurchase}

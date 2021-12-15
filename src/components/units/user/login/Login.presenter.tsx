@@ -4,7 +4,7 @@ import * as S from "./Login.styles";
 export default function LoginUI(props: any) {
   return (
     <S.LoginMenuForm onSubmit={props.handleSubmit(props.onClickLogin)}>
-      {props.accessToken ? (
+      {props.userInfo.name ? (
         <S.LogedWrapper>
           <S.Profile></S.Profile>
           <S.ProfileInfoWrapper>

@@ -65,7 +65,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("refreshToken")) getAccessToken(setAccessToken);
+    // if (localStorage.getItem("refreshToken")) {
+    //   getAccessToken(setAccessToken);
+    // }
     const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
     setUserInfo(userInfo);
   }, []);

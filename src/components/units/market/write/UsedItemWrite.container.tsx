@@ -3,13 +3,14 @@ import { Modal } from "antd";
 import UsedItemWriteUI from "./UsedItemWrite.presenter";
 import { CREATE_USED_ITEM, UPDATE_USED_ITEM } from "./UsedItemWrite.qureies";
 import { useRouter } from "next/router";
-import { schema } from "./UsedItemWrite.validations";
+import { schema, editSchema } from "./UsedItemWrite.validations";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import { useState } from "react";
 import { FormValues } from "./UsedItemWrite.types";
 
 export default function UsedItemWrite(props: any) {
+  console.log(props.data);
   const router = useRouter();
 
   const [images, setImages] = useState([]);
@@ -27,7 +28,7 @@ export default function UsedItemWrite(props: any) {
   const { handleSubmit, register, setValue, trigger, formState, getValues } =
     useForm({
       mode: "onChange",
-      resolver: yupResolver(schema),
+      resolver: props.isEdit ? yupResolver(editSchema) : yupResolver(schema),
     });
 
   const handleChange = (value: string) => {
@@ -45,17 +46,16 @@ export default function UsedItemWrite(props: any) {
       const result = await createUsedItem({
         variables: {
           createUseditemInput: {
-            name: data.name,
+            name: data.name || props.data?.fetchUseditem.name,
             contents: data.contents,
-            price: data.price,
-            remarks: data.remarks,
+            price: data.price || props.data?.fetchUseditem.price,
+            remarks: data.remarks || props.data?.fetchUseditem.remarks,
             images,
             tags: [],
             useditemAddress,
           },
         },
       });
-      console.log(result.data.createUseditem);
       Modal.success({ title: "상품이 등록되었습니다." });
       router.push(`/market/${result.data.createUseditem._id}`);
     } catch (error) {
@@ -70,8 +70,6 @@ export default function UsedItemWrite(props: any) {
       price: data.price,
       remarks: data.remarks,
     };
-
-    console.log(updateUseditemInput);
     try {
       const result = await updateUsedItem({
         variables: {
@@ -79,7 +77,6 @@ export default function UsedItemWrite(props: any) {
           updateUseditemInput,
         },
       });
-      console.log(result.data);
       Modal.success({ title: "상품이 수정되었습니다." });
       router.push(`/market/${result.data.updateUseditem._id}`);
     } catch (error) {

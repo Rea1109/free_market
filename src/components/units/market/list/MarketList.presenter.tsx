@@ -1,7 +1,8 @@
 import * as S from "./MarketList.styles";
 import InfiniteScroll from "react-infinite-scroller";
 import { IMarketListUIProps } from "./MarketList.types";
-import { changeUrl } from "../../../../commons/libraries/utils";
+import { changeUrl, replacePrice } from "../../../../commons/libraries/utils";
+import { v4 as uuid } from "uuid";
 
 export default function MarketListUI(props: IMarketListUIProps) {
   return (
@@ -12,43 +13,98 @@ export default function MarketListUI(props: IMarketListUIProps) {
       </S.ListHeader>
       <S.BestWrapper>
         {props.bestUsedItems?.fetchUseditemsOfTheBest.map((el) => (
-          <S.BestItemCard key={el._id}>
+          <S.BestItemCard key={uuid()}>
             <S.ItemImg
               src={changeUrl(el.images?.[0] || "")}
               onError={props.handleErrorImg}
             />
-            <S.Info onClick={props.onClickGetItem(el._id)}>{el.name}</S.Info>
-            <S.Info>₩ {el.price}</S.Info>
+            <S.InfoWrapper>
+              <S.ItemName onClick={props.onClickGetItem(el._id)}>
+                {el.name}
+              </S.ItemName>
+              <S.ItemIcon>{replacePrice(String(el.price))}</S.ItemIcon>
+              <S.IconWrapper>
+                <div
+                  style={{
+                    width: "40%",
+                    display: "flex",
+                    justifyContent: "space-evenly",
+                  }}
+                >
+                  <img
+                    style={{ width: "16px", height: "16px" }}
+                    src="/images/boards/list/like.png"
+                  />
+                  <div>{el.pickedCount}</div>
+                </div>
+                <div
+                  style={{
+                    width: "70%",
+                    display: "flex",
+                    justifyContent: "space-evenly",
+                  }}
+                >
+                  <img
+                    style={{ width: "20px", height: "20px" }}
+                    src="/images/boards/get/location.png"
+                  />
+                  <div>{el.useditemAddress?.address || "없음"}</div>
+                </div>
+              </S.IconWrapper>
+            </S.InfoWrapper>
           </S.BestItemCard>
         ))}
       </S.BestWrapper>
       <S.SearchBar>search bar</S.SearchBar>
       <InfiniteScroll pageStart={0} loadMore={props.onLoad} hasMore={true}>
-        <div
-          style={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <S.InfiniteScrollBody>
           <S.UsedItemsWrapper>
             {props.usedItems?.fetchUseditems.map((el) => (
-              <S.ItemCardWrapper key={el._id}>
+              <S.ItemCardWrapper key={uuid()}>
                 <S.ItemCard key={el._id}>
                   <S.ItemImg
                     src={changeUrl(el.images?.[0] || "")}
                     onError={props.handleErrorImg}
                   />
-                  <S.Info onClick={props.onClickGetItem(el._id)}>
-                    {el.name}
-                  </S.Info>
-                  <S.Info>₩ {el.price}</S.Info>
+                  <S.InfoWrapper>
+                    <S.ItemName onClick={props.onClickGetItem(el._id)}>
+                      {el.name}
+                    </S.ItemName>
+                    <S.ItemIcon>{replacePrice(String(el.price))}</S.ItemIcon>
+                    <S.IconWrapper>
+                      <div
+                        style={{
+                          width: "40%",
+                          display: "flex",
+                          justifyContent: "space-evenly",
+                        }}
+                      >
+                        <img
+                          style={{ width: "18px", height: "18px" }}
+                          src="/images/boards/list/like.png"
+                        />
+                        <div>{el.pickedCount}</div>
+                      </div>
+                      <div
+                        style={{
+                          width: "70%",
+                          display: "flex",
+                          justifyContent: "space-evenly",
+                        }}
+                      >
+                        <img
+                          style={{ width: "20px", height: "20px" }}
+                          src="/images/boards/get/location.png"
+                        />
+                        <div>{el.useditemAddress?.address || "없음"}</div>
+                      </div>
+                    </S.IconWrapper>
+                  </S.InfoWrapper>
                 </S.ItemCard>
               </S.ItemCardWrapper>
             ))}
           </S.UsedItemsWrapper>
-        </div>
+        </S.InfiniteScrollBody>
       </InfiniteScroll>
     </>
   );

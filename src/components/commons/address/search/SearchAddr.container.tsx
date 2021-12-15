@@ -1,5 +1,5 @@
 import SearchAddrUI from "./SearchAddr.presenter";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 declare const window: Window &
   typeof globalThis & {
@@ -82,11 +82,19 @@ export default function SearchAddr(props: any) {
 
     setMyMarker(marker);
   }, []);
+
+  const onChangeAddressDetail = (event: ChangeEvent<HTMLInputElement>) => {
+    props.setUseditemAddress((prev: any) => ({
+      ...prev,
+      addressDetail: event.target.value,
+    }));
+  };
   return (
     <SearchAddrUI
       zipcode={zipcode}
       address={address}
       onClickSearchAddr={onClickSearchAddr}
+      onChangeAddressDetail={onChangeAddressDetail}
     />
   );
 }

@@ -4,7 +4,7 @@ import {
   IMutationLoginUserArgs,
 } from "../../../../commons/types/generated/types";
 import LoginUI from "./Login.presenter";
-import { LOGIN_USER, FETCH_USER_LOGGED_IN } from "./Login.queries";
+import { LOGIN_USER, FETCH_USER_LOGGED_IN, LOGOUT_USER } from "./Login.queries";
 import * as yup from "yup";
 import { useContext } from "react";
 import { GlobalContext } from "../../../../../pages/_app";
@@ -27,13 +27,14 @@ export default function Login() {
   const router = useRouter();
   const client = useApolloClient();
 
-  const { setAccessToken, setUserInfo, accessToken, userInfo } =
-    useContext(GlobalContext);
+  const { setAccessToken, setUserInfo, userInfo } = useContext(GlobalContext);
 
   const [loginUser] = useMutation<
     Pick<IMutation, "loginUser">,
     IMutationLoginUserArgs
   >(LOGIN_USER);
+
+  const [logoutUser] = useMutation(LOGOUT_USER);
 
   const { handleSubmit, register, formState } = useForm({
     mode: "onChange",
@@ -81,8 +82,11 @@ export default function Login() {
     }
   };
 
-  const onClickLogOut = () => {
+  const onClickLogOut = async () => {
     Modal.success({ title: "see you soon" });
+    // const result = await logoutUser();
+    // console.log(result);
+    logoutUser();
     localStorage.removeItem("userInfo");
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("basket");
@@ -100,7 +104,6 @@ export default function Login() {
       onClickLogin={onClickLogin}
       register={register}
       formState={formState}
-      accessToken={accessToken}
       userInfo={userInfo}
       onClickLogOut={onClickLogOut}
       onMoveSignUp={onMoveSignUp}

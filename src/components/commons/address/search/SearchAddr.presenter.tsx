@@ -18,7 +18,11 @@ export default function SearchAddrUI(props: any) {
           value={props.address}
           readOnly
         />
-        <S.AddressDetailBox type="text" placeholder="상세 주소" />
+        <S.AddressDetailBox
+          type="text"
+          onChange={props.onChangeAddressDetail}
+          placeholder="상세 주소"
+        />
         <S.SearchAddrBtn type="button" onClick={props.onClickSearchAddr}>
           주소 검색
         </S.SearchAddrBtn>

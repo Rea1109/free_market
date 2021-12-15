@@ -41,7 +41,9 @@ export default function MainUI(props: IMainUIProps) {
           </S.MarketMenu>
         </S.SubWrapperLeft>
         <S.GuestBookMenu>
-          <S.MenuLabel style={{ color: "black" }}>My Page</S.MenuLabel>
+          <S.MenuLabel onClick={props.onMoveMypage} style={{ color: "black" }}>
+            My Page
+          </S.MenuLabel>
         </S.GuestBookMenu>
       </S.MainWrapper>
       <S.MainWrapper>

@@ -8,9 +8,7 @@ export default function UploadsUI(props: any) {
       {props.isEdit ? (
         <S.UploadImageWrapper>
           {props.data?.fetchUseditem.images?.map((el: string, idx: number) => (
-            <>
-              <S.UploadImage key={el} src={changeUrl(el)} />
-            </>
+            <S.UploadImage key={el} src={changeUrl(el)} />
           ))}
 
           <S.UploadIcon onClick={props.onClickAddImage}>
@@ -21,9 +19,7 @@ export default function UploadsUI(props: any) {
         <S.UploadImageWrapper>
           {props.uploadImages &&
             props.uploadImages.map((el: string, idx: number) => (
-              <>
-                <S.UploadImage key={el} src={changeUrl(el)} />
-              </>
+              <S.UploadImage key={el} src={changeUrl(el)} />
             ))}
 
           <S.UploadIcon onClick={props.onClickAddImage}>

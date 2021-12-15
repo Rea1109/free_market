@@ -9,13 +9,10 @@ export default function Main() {
   const router = useRouter();
   const [weatherInfo, setWeatherInfo] = useState<IWeatherInfo>({});
 
-  console.log(process.env.NEXT_PUBLIC_APP_KEY);
-
   const fetchWeather = async () => {
     const result = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?q=Seoul,kr&appid=${process.env.NEXT_PUBLIC_APP_KEY}`
     );
-    console.log(result.data);
 
     setWeatherInfo({
       cityName: result.data.name,
@@ -35,6 +32,7 @@ export default function Main() {
     <MainUI
       onMoveBoard={() => router.push("/boards")}
       onMoveMarket={() => router.push("/market")}
+      onMoveMypage={() => router.push("/user/get")}
       weatherInfo={weatherInfo}
     />
   );
