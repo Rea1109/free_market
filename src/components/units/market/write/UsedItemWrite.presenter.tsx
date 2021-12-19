@@ -47,7 +47,14 @@ export default function UsedItemWriteUI(props: any) {
                 {props.formState.errors.remarks?.message}
               </S.ErrorText>
             </S.InfoWrapper>
-            <S.InfoWrapper></S.InfoWrapper>
+            <S.InfoWrapper>
+              <S.TagBox
+                mode="tags"
+                placeholder="Product Tag"
+                onChange={props.handleTag}
+                defaultValue={props.isEdit && props.data?.fetchUseditem.tags}
+              />
+            </S.InfoWrapper>
             <S.InfoWrapper>
               {props.isEdit ? (
                 <S.ContentsInputBox

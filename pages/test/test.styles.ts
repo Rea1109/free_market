@@ -21,7 +21,8 @@ export const SliderImgDiv = styled.div`
 `;
 
 export const SliderImg = styled.img`
-  width: 100%;
+  margin-left: 130px;
+  width: 300px;
   height: 300px;
 `;
 

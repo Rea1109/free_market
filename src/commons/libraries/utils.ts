@@ -34,3 +34,7 @@ export function changeUrl(url: string) {
 export function replacePrice(number: string) {
   return number.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " (원)";
 }
+
+export const replaceAddr = (address: string) => {
+  return address.split(" ")[0] + " " + address.split(" ")[1];
+};

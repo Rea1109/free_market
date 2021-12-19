@@ -10,10 +10,10 @@ import { useState } from "react";
 import { FormValues } from "./UsedItemWrite.types";
 
 export default function UsedItemWrite(props: any) {
-  console.log(props.data);
   const router = useRouter();
 
   const [images, setImages] = useState([]);
+  const [tags, setTags] = useState<string[]>();
   const [useditemAddress, setUseditemAddress] = useState({
     zipcode: "",
     address: "",
@@ -31,6 +31,10 @@ export default function UsedItemWrite(props: any) {
       resolver: props.isEdit ? yupResolver(editSchema) : yupResolver(schema),
     });
 
+  const handleTag = (value: string[]) => {
+    setTags(value);
+  };
+
   const handleChange = (value: string) => {
     console.log(value);
 
@@ -42,16 +46,17 @@ export default function UsedItemWrite(props: any) {
   };
 
   const onSubmitUsedItem = async (data: FormValues) => {
+    console.log(images);
     try {
       const result = await createUsedItem({
         variables: {
           createUseditemInput: {
-            name: data.name || props.data?.fetchUseditem.name,
+            name: data.name,
             contents: data.contents,
-            price: data.price || props.data?.fetchUseditem.price,
-            remarks: data.remarks || props.data?.fetchUseditem.remarks,
+            price: data.price,
+            remarks: data.remarks,
             images,
-            tags: [],
+            tags,
             useditemAddress,
           },
         },
@@ -69,7 +74,9 @@ export default function UsedItemWrite(props: any) {
       contents: data.contents,
       price: data.price,
       remarks: data.remarks,
+      images,
     };
+    console.log(updateUseditemInput);
     try {
       const result = await updateUsedItem({
         variables: {
@@ -97,6 +104,7 @@ export default function UsedItemWrite(props: any) {
       onClickUpdate={onClickUpdate}
       handleChange={handleChange}
       getValues={getValues}
+      handleTag={handleTag}
     />
   );
 }

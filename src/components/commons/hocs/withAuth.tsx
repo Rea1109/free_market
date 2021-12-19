@@ -7,7 +7,7 @@ export const withAuth = (Component) => (props) => {
   //   const { accessToken } = useContext(GlobalContext);
 
   useEffect(() => {
-    if (!localStorage.getItem("userInfo")) {
+    if (!localStorage.getItem("refreshToken")) {
       Modal.warning({ title: "로그인이 필요한 페이지 입니다." });
       router.push("/");
     }

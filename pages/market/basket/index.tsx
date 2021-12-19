@@ -1,5 +1,7 @@
 import Basket from "../../../src/components/units/market/basket/Basket.container";
 
-export default function BasketPage() {
+function BasketPage() {
   return <Basket />;
 }
+
+export default BasketPage;

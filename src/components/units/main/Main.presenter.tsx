@@ -48,8 +48,18 @@ export default function MainUI(props: IMainUIProps) {
       </S.MainWrapper>
       <S.MainWrapper>
         <S.SignUpMenu>
-          <S.SignMenuImg />
-          <Login />
+          {props.isLogout ? (
+            <>
+              <S.SignMenuImg />
+              <Login />
+            </>
+          ) : (
+            <div>
+              <div>{props.data?.fetchUserLoggedIn.name}</div>
+              <div>{props.data?.fetchUserLoggedIn.email}</div>
+              <button onClick={props.onClickLogOut}>로그아웃</button>
+            </div>
+          )}
         </S.SignUpMenu>
         <S.SubWrapperRight>
           <S.ResumeMenu>

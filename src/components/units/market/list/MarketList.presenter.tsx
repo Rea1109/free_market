@@ -1,7 +1,11 @@
 import * as S from "./MarketList.styles";
 import InfiniteScroll from "react-infinite-scroller";
 import { IMarketListUIProps } from "./MarketList.types";
-import { changeUrl, replacePrice } from "../../../../commons/libraries/utils";
+import {
+  changeUrl,
+  replaceAddr,
+  replacePrice,
+} from "../../../../commons/libraries/utils";
 import { v4 as uuid } from "uuid";
 
 export default function MarketListUI(props: IMarketListUIProps) {
@@ -48,7 +52,11 @@ export default function MarketListUI(props: IMarketListUIProps) {
                     style={{ width: "20px", height: "20px" }}
                     src="/images/boards/get/location.png"
                   />
-                  <div>{el.useditemAddress?.address || "없음"}</div>
+                  <div>
+                    {el.useditemAddress?.address
+                      ? replaceAddr(el.useditemAddress?.address)
+                      : "주소 없음"}
+                  </div>
                 </div>
               </S.IconWrapper>
             </S.InfoWrapper>
@@ -96,7 +104,11 @@ export default function MarketListUI(props: IMarketListUIProps) {
                           style={{ width: "20px", height: "20px" }}
                           src="/images/boards/get/location.png"
                         />
-                        <div>{el.useditemAddress?.address || "없음"}</div>
+                        <div>
+                          {el.useditemAddress?.address
+                            ? replaceAddr(el.useditemAddress?.address)
+                            : "주소 없음"}
+                        </div>
                       </div>
                     </S.IconWrapper>
                   </S.InfoWrapper>

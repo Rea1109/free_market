@@ -7,9 +7,23 @@ export default function UploadsUI(props: any) {
       <S.UploadImageTitle>Attach Images</S.UploadImageTitle>
       {props.isEdit ? (
         <S.UploadImageWrapper>
-          {props.data?.fetchUseditem.images?.map((el: string, idx: number) => (
-            <S.UploadImage key={el} src={changeUrl(el)} />
-          ))}
+          {props.isEditImage
+            ? props.uploadImages.map((el: string, idx: number) => (
+                <S.UploadImage
+                  key={el}
+                  src={changeUrl(el)}
+                  onClick={props.deleteImageFile(el)}
+                />
+              ))
+            : props.data?.fetchUseditem.images?.map(
+                (el: string, idx: number) => (
+                  <S.UploadImage
+                    key={el}
+                    src={changeUrl(el)}
+                    onClick={props.deleteImageFile(el)}
+                  />
+                )
+              )}
 
           <S.UploadIcon onClick={props.onClickAddImage}>
             upload image

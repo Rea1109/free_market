@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Input } from "antd";
 
 export const MapWrapper = styled.div`
   position: relative;
@@ -26,27 +27,22 @@ export const AddrInfoWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const ZipcodeBox = styled.input`
+export const ZipcodeBox = styled(Input)`
   width: 10%;
   height: 40px;
-  text-align: center;
-  border: 2px solid #cacaca;
+  border-radius: 5px;
+  font-size: 10px;
+`;
+
+export const AddreessBox = styled(Input)`
+  width: 40%;
+  height: 40px;
   border-radius: 5px;
 `;
 
-export const AddreessBox = styled.input`
+export const AddressDetailBox = styled(Input)`
   width: 40%;
   height: 40px;
-  padding: 20px;
-  border: 2px solid #cacaca;
-  border-radius: 5px;
-`;
-
-export const AddressDetailBox = styled.input`
-  width: 40%;
-  height: 40px;
-  padding: 20px;
-  border: 2px solid #cacaca;
   border-radius: 5px;
 `;
 export const SearchAddrBtn = styled.button`

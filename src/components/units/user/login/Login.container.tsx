@@ -4,7 +4,7 @@ import {
   IMutationLoginUserArgs,
 } from "../../../../commons/types/generated/types";
 import LoginUI from "./Login.presenter";
-import { LOGIN_USER, FETCH_USER_LOGGED_IN, LOGOUT_USER } from "./Login.queries";
+import { LOGIN_USER, FETCH_USER_LOGGED_IN } from "./Login.queries";
 import * as yup from "yup";
 import { useContext } from "react";
 import { GlobalContext } from "../../../../../pages/_app";
@@ -27,14 +27,12 @@ export default function Login() {
   const router = useRouter();
   const client = useApolloClient();
 
-  const { setAccessToken, setUserInfo, userInfo } = useContext(GlobalContext);
+  const { setAccessToken, setIsLogout } = useContext(GlobalContext);
 
   const [loginUser] = useMutation<
     Pick<IMutation, "loginUser">,
     IMutationLoginUserArgs
   >(LOGIN_USER);
-
-  const [logoutUser] = useMutation(LOGOUT_USER);
 
   const { handleSubmit, register, formState } = useForm({
     mode: "onChange",
@@ -52,7 +50,6 @@ export default function Login() {
       const accessToken = result.data?.loginUser.accessToken;
       localStorage.setItem("refreshToken", "true");
       setAccessToken?.(accessToken || "");
-
       const resultUserInfo = await client.query({
         query: FETCH_USER_LOGGED_IN,
         context: {
@@ -61,15 +58,10 @@ export default function Login() {
           },
         },
       });
-      localStorage.setItem(
-        "userInfo",
-        JSON.stringify(resultUserInfo.data.fetchUserLoggedIn) || ""
-      );
-      setUserInfo?.(resultUserInfo.data.fetchUserLoggedIn);
       Modal.success({
         title: `Hi ${resultUserInfo.data.fetchUserLoggedIn.name} !`,
       });
-
+      setIsLogout?.(false);
       const baskets = JSON.parse(localStorage.getItem("basket") || "[]");
       if (baskets.length) {
         const result = confirm(
@@ -77,20 +69,10 @@ export default function Login() {
         );
         if (result) router.push("/market/basket");
       }
+      router.push("/");
     } catch (error) {
       error instanceof Error && Modal.error({ title: error.message });
     }
-  };
-
-  const onClickLogOut = async () => {
-    Modal.success({ title: "see you soon" });
-    // const result = await logoutUser();
-    // console.log(result);
-    logoutUser();
-    localStorage.removeItem("userInfo");
-    localStorage.removeItem("refreshToken");
-    localStorage.removeItem("basket");
-    location.reload();
   };
 
   const onMoveSignUp = () => {
@@ -104,8 +86,6 @@ export default function Login() {
       onClickLogin={onClickLogin}
       register={register}
       formState={formState}
-      userInfo={userInfo}
-      onClickLogOut={onClickLogOut}
       onMoveSignUp={onMoveSignUp}
     />
   );

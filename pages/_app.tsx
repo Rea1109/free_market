@@ -39,12 +39,8 @@ const firebaseConfig = {
 interface IGlobalContext {
   accessToken?: string;
   setAccessToken?: Dispatch<SetStateAction<string>>;
-  userInfo?: {
-    name?: string;
-    email?: string;
-    picture?: string;
-  };
-  setUserInfo?: Dispatch<SetStateAction<{}>>;
+  isLogout?: boolean;
+  setIsLogout?: Dispatch<SetStateAction<boolean>>;
 }
 
 // Initialize Firebase
@@ -53,33 +49,31 @@ export const GlobalContext = createContext<IGlobalContext>({});
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [accessToken, setAccessToken] = useState("");
-  const [userInfo, setUserInfo] = useState({});
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogout, setIsLogout] = useState(true);
   const globarState = {
     accessToken,
     setAccessToken,
-    userInfo,
-    setUserInfo,
-    isLogin,
-    setIsLogin,
+    isLogout,
+    setIsLogout,
   };
 
   useEffect(() => {
-    // if (localStorage.getItem("refreshToken")) {
-    //   getAccessToken(setAccessToken);
-    // }
-    const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
-    setUserInfo(userInfo);
+    if (localStorage.getItem("refreshToken")) {
+      getAccessToken(setAccessToken);
+      setIsLogout(false);
+    }
   }, []);
 
   const errorLink = onError(({ graphQLErrors, operation, forward }) => {
     if (graphQLErrors) {
       for (const err of graphQLErrors) {
+        // 1. 토크만료 에러를 캐치
         if (err.extensions?.code === "UNAUTHENTICATED") {
+          // 3. 기존에 실패한 요청 다시 재요청하기 , operation 안에는 만료된 토큰도 들어있어서 그 부분을 바꿔줘야 함
           operation.setContext({
             headers: {
               ...operation.getContext().headers,
-              authorization: `Bearer ${getAccessToken(setAccessToken)}`,
+              authorization: `Bearer ${getAccessToken(setAccessToken)}`, // 2. refreshToken 으로 accessToken 재발급 받기 => restoreAccessToken`,
             },
           });
 
@@ -90,15 +84,17 @@ function MyApp({ Component, pageProps }: AppProps) {
   });
 
   const uploadLink = createUploadLink({
-    uri: "http://backend04.codebootcamp.co.kr/graphql",
+    uri: "https://backend04.codebootcamp.co.kr/graphql",
     headers: { authorization: `Bearer ${accessToken}` },
     credentials: "include",
   });
 
+  // ApolloClient 셋팅
   const client = new ApolloClient({
     link: ApolloLink.from([errorLink, uploadLink as unknown as ApolloLink]),
     cache: new InMemoryCache(),
   });
+
   return (
     <GlobalContext.Provider value={globarState}>
       <ApolloProvider client={client}>

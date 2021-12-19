@@ -1,3 +1,5 @@
+import { IQuery } from "../../../commons/types/generated/types";
+
 export interface IWeatherInfo {
   cityName?: string;
   src?: string;
@@ -9,7 +11,10 @@ export interface IWeatherInfo {
 
 export interface IMainUIProps {
   weatherInfo: IWeatherInfo;
+  isLogout?: boolean;
+  data?: Pick<IQuery, "fetchUserLoggedIn">;
   onMoveBoard: () => void;
   onMoveMarket: () => void;
   onMoveMypage: () => void;
+  onClickLogOut: () => void;
 }

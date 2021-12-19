@@ -8,23 +8,22 @@ export default function SearchAddrUI(props: any) {
       <S.AddrInfoWrapper>
         <S.ZipcodeBox
           type="text"
-          placeholder="우편번호"
+          placeholder="code"
           value={props.zipcode}
           readOnly
         />
         <S.AddreessBox
           type="text"
-          placeholder="주소"
+          placeholder="address"
           value={props.address}
           readOnly
         />
         <S.AddressDetailBox
           type="text"
           onChange={props.onChangeAddressDetail}
-          placeholder="상세 주소"
         />
         <S.SearchAddrBtn type="button" onClick={props.onClickSearchAddr}>
-          주소 검색
+          검색
         </S.SearchAddrBtn>
       </S.AddrInfoWrapper>
     </S.MapWrapper>

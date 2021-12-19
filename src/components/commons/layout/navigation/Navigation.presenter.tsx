@@ -11,6 +11,11 @@ export default function NavigationUI(props: INavigationUIProps) {
       <S.NavMenu onClick={props.onClickMove("/market/basket")}>
         basket
       </S.NavMenu>
+      {!props.isLogout && (
+        <S.NavMenu onClick={props.onClickLogOut}>
+          <button>log out</button>
+        </S.NavMenu>
+      )}
     </S.Navigation>
   );
 }

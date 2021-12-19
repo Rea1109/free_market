@@ -1,13 +1,22 @@
 import MainUI from "./Main.presenter";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { getTemp } from "../../../commons/libraries/utils";
 import { IWeatherInfo } from "./Main.types";
+import { FETCH_USER_LOGGED_IN, LOGOUT_USER } from "./Main.queries";
+import { GlobalContext } from "../../../../pages/_app";
+import { useQuery, useMutation } from "@apollo/client";
+import { IQuery } from "../../../commons/types/generated/types";
+import { Modal } from "antd";
 
 export default function Main() {
   const router = useRouter();
   const [weatherInfo, setWeatherInfo] = useState<IWeatherInfo>({});
+  const { isLogout, setIsLogout } = useContext(GlobalContext);
+  const [logoutUser] = useMutation(LOGOUT_USER);
+  const { data } =
+    useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
 
   const fetchWeather = async () => {
     const result = await axios.get(
@@ -24,6 +33,19 @@ export default function Main() {
     });
   };
 
+  const onClickLogOut = () => {
+    try {
+      logoutUser();
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("basket");
+      localStorage.removeItem("userInfo");
+      setIsLogout?.(true);
+      router.push("/");
+    } catch (error) {
+      error instanceof Error && Modal.error({ title: error.message });
+    }
+  };
+
   useEffect(() => {
     fetchWeather();
   }, []);
@@ -33,7 +55,10 @@ export default function Main() {
       onMoveBoard={() => router.push("/boards")}
       onMoveMarket={() => router.push("/market")}
       onMoveMypage={() => router.push("/user/get")}
+      onClickLogOut={onClickLogOut}
       weatherInfo={weatherInfo}
+      isLogout={isLogout}
+      data={data}
     />
   );
 }

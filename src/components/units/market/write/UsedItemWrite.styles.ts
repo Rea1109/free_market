@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Select } from "antd";
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
@@ -86,20 +87,22 @@ export const MapForm = styled.div`
 
 export const ContentsInputBox = styled(ReactQuill)`
   width: 90%;
-  height: 600px;
+  height: 500px;
   border: none;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px gray;
   overflow: auto;
 `;
 
 export const InfoInputBox = styled.input`
   width: 90%;
   height: 30px;
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px gray;
-  padding-left: 20px;
+  border: 1px solid #d9d9d9;
+  color: red;
+  padding: 10px;
+`;
+
+export const TagBox = styled(Select)`
+  width: 90%;
+  height: 30px;
 `;
 
 export const ErrorText = styled.div`
