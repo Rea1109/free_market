@@ -1,8 +1,10 @@
+import Chart from "../chart/Chart.container";
 import Login from "../user/login/Login.container";
 import * as S from "./Main.styles";
 import { IMainUIProps } from "./Main.types";
 
 export default function MainUI(props: IMainUIProps) {
+  console.log(props.weatherInfo);
   return (
     <S.Main>
       <S.MainWrapper>
@@ -10,9 +12,9 @@ export default function MainUI(props: IMainUIProps) {
           <S.WeatherBtn onClick={() => window.location.reload()}>
             <img src="/images/main/reload.png" />
           </S.WeatherBtn>
-          <S.WeatherSubWrapper>
+          {/* <S.WeatherSubWrapper>
             <S.WeatherImg src={props.weatherInfo.src} />
-          </S.WeatherSubWrapper>
+          </S.WeatherSubWrapper> */}
           <S.WheatherWrapper>
             <S.WeatherSubWrapper>
               <img src="/images/main/weather-news.png" />
@@ -41,8 +43,11 @@ export default function MainUI(props: IMainUIProps) {
           </S.MarketMenu>
         </S.SubWrapperLeft>
         <S.GuestBookMenu>
-          <S.MenuLabel onClick={props.onMoveMypage} style={{ color: "black" }}>
-            My Page
+          <S.MenuLabel
+            onClick={() => alert("방명록 예정")}
+            style={{ color: "black" }}
+          >
+            Guest Book
           </S.MenuLabel>
         </S.GuestBookMenu>
       </S.MainWrapper>
@@ -54,11 +59,28 @@ export default function MainUI(props: IMainUIProps) {
               <Login />
             </>
           ) : (
-            <div>
-              <div>{props.data?.fetchUserLoggedIn.name}</div>
-              <div>{props.data?.fetchUserLoggedIn.email}</div>
-              <button onClick={props.onClickLogOut}>로그아웃</button>
-            </div>
+            <>
+              <S.UserInfoLeft>
+                <S.ProfileImg src="/images/main/user-profile.jpg" alt="" />
+                <S.ProfileName>
+                  {props.data?.fetchUserLoggedIn.name}
+                </S.ProfileName>
+                <S.ProfileEmail>
+                  {props.data?.fetchUserLoggedIn.email}
+                </S.ProfileEmail>
+                <S.BtnWrapper>
+                  <S.UserInfoBtn onClick={props.onMoveMyPage}>
+                    my page
+                  </S.UserInfoBtn>
+                  <S.UserInfoBtn onClick={props.onClickLogOut}>
+                    log out
+                  </S.UserInfoBtn>
+                </S.BtnWrapper>
+              </S.UserInfoLeft>
+              <S.UserInfoRight>
+                <Chart />
+              </S.UserInfoRight>
+            </>
           )}
         </S.SignUpMenu>
         <S.SubWrapperRight>

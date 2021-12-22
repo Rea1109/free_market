@@ -6,16 +6,22 @@ import {
 } from "../../../../commons/types/generated/types";
 import { useQuery } from "@apollo/client";
 import { FETCH_USED_ITEMS, FETCH_USED_ITEMS_BEST } from "./MarketList.queries";
-import { SyntheticEvent } from "react";
+import { SyntheticEvent, useState } from "react";
 
 export default function MarketList() {
   const router = useRouter();
-  const { data: usedItems, fetchMore } = useQuery<
-    Pick<IQuery, "fetchUseditems">,
-    IQueryFetchUseditemsArgs
-  >(FETCH_USED_ITEMS, {
-    variables: { isSoldout: false },
-  });
+  const [keyword, setKeyWord] = useState("");
+
+  const {
+    data: usedItems,
+    refetch,
+    fetchMore,
+  } = useQuery<Pick<IQuery, "fetchUseditems">, IQueryFetchUseditemsArgs>(
+    FETCH_USED_ITEMS,
+    {
+      variables: { isSoldout: false },
+    }
+  );
 
   const { data: bestUsedItems } = useQuery<
     Pick<IQuery, "fetchUseditemsOfTheBest">
@@ -40,20 +46,27 @@ export default function MarketList() {
     });
   };
 
+  const onClickSearch = () => {
+    refetch({ search: keyword });
+  };
+
   const handleErrorImg = (event: SyntheticEvent) => {
-    event.target.src = "/images/commons/error-image.jpg";
+    event.target instanceof HTMLImageElement &&
+      event.target.setAttribute("src", "/images/commons/error-image.jpg");
   };
 
   return (
     <MarketListUI
       bestUsedItems={bestUsedItems}
       usedItems={usedItems}
+      setKeyWord={setKeyWord}
       onLoad={onLoad}
       onMoveMarketNew={() => router.push("/market/new")}
       onClickGetItem={(id) => () => {
         router.push(`/market/${id}`);
       }}
       handleErrorImg={handleErrorImg}
+      onClickSearch={onClickSearch}
     />
   );
 }

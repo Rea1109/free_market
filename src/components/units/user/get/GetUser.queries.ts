@@ -48,3 +48,31 @@ export const FETCH_USED_ITEMS_IPICKED = gql`
     }
   }
 `;
+
+export const FETCH_POINT_TRANSACTIONS_OF_BUYING = gql`
+  query fetchPointTransactionsOfBuying($search: String, $page: Int) {
+    fetchPointTransactionsOfBuying(search: $search, page: $page) {
+      amount
+      balance
+      useditem {
+        name
+        price
+      }
+      createdAt
+    }
+  }
+`;
+
+export const FETCH_POINT_TRANSACTIONS_OF_LOADING = gql`
+  query fetchPointTransactionsOfLoading($search: String, $page: Int) {
+    fetchPointTransactionsOfLoading(search: $search, page: $page) {
+      amount
+      balance
+      useditem {
+        name
+        price
+      }
+      createdAt
+    }
+  }
+`;

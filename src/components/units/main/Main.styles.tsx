@@ -80,7 +80,8 @@ export const WeatherMenu = styled.div`
   border-radius: 15px;
   box-shadow: 0px 0px 5px gray;
   position: relative;
-  background-image: url("/images/main/weather-menu.png");
+  /* background-image: url("/images/main/weather-day.png"); */
+  background-image: url("/images/main/weather-night.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -106,7 +107,8 @@ export const WeatherImg = styled.img`
 
 export const WeatherInfo = styled.div`
   font-size: 30px;
-  color: #4c4c4c;
+  /* color: #4c4c4c; */
+  color: white;
   font-weight: bolder;
   margin-top: 20px;
 `;
@@ -176,4 +178,51 @@ export const RefMenu = styled.div`
   background-size: cover;
   background-position: center center;
   position: relative;
+`;
+
+// login 완료 화면
+export const UserInfoLeft = styled.div`
+  background-color: #00b6d8;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
+export const UserInfoBtn = styled.button`
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  background-color: white;
+  color: #00b6d8;
+  font-weight: bolder;
+`;
+
+export const ProfileImg = styled.img`
+  width: 50%;
+  height: 50%;
+  border-radius: 100%;
+`;
+
+export const ProfileName = styled.h1`
+  color: white;
+`;
+
+export const ProfileEmail = styled.h4`
+  color: white;
+`;
+
+export const UserInfoRight = styled.div`
+  width: 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const BtnWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
 `;

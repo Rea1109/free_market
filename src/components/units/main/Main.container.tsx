@@ -23,6 +23,8 @@ export default function Main() {
       `https://api.openweathermap.org/data/2.5/weather?q=Seoul,kr&appid=${process.env.NEXT_PUBLIC_APP_KEY}`
     );
 
+    console.log("날씨 정보 :", result);
+
     setWeatherInfo({
       cityName: result.data.name,
       src: `http://openweathermap.org/img/w/${result.data.weather[0].icon}.png`,
@@ -54,7 +56,7 @@ export default function Main() {
     <MainUI
       onMoveBoard={() => router.push("/boards")}
       onMoveMarket={() => router.push("/market")}
-      onMoveMypage={() => router.push("/user/get")}
+      onMoveMyPage={() => router.push("/user/get")}
       onClickLogOut={onClickLogOut}
       weatherInfo={weatherInfo}
       isLogout={isLogout}

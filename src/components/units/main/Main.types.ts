@@ -15,6 +15,6 @@ export interface IMainUIProps {
   data?: Pick<IQuery, "fetchUserLoggedIn">;
   onMoveBoard: () => void;
   onMoveMarket: () => void;
-  onMoveMypage: () => void;
   onClickLogOut: () => void;
+  onMoveMyPage: () => void;
 }

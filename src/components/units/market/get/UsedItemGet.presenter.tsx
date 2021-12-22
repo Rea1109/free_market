@@ -59,7 +59,11 @@ export default function UsedItemGetUI(props: any) {
             <button onClick={props.onClickEdit(props.data?.fetchUseditem._id)}>
               수정하기
             </button>
-            <button>삭제하기</button>
+            <button
+              onClick={props.onClickDelete(props.data?.fetchUseditem._id)}
+            >
+              삭제하기
+            </button>
           </>
         ) : (
           <>
@@ -71,9 +75,19 @@ export default function UsedItemGetUI(props: any) {
             <button onClick={props.onClickBasket(props.data?.fetchUseditem)}>
               장바구니
             </button>
-            <button onClick={props.onClickPick(props.data?.fetchUseditem._id)}>
-              찜하기
-            </button>
+            {props.isPick ? (
+              <button
+                onClick={props.onClickPick(props.data?.fetchUseditem._id)}
+              >
+                찜하기 취소
+              </button>
+            ) : (
+              <button
+                onClick={props.onClickPick(props.data?.fetchUseditem._id)}
+              >
+                찜하기
+              </button>
+            )}
           </>
         )}
       </S.ItemInfoWrapper>

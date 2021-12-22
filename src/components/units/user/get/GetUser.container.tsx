@@ -1,5 +1,6 @@
 import { useQuery, useMutation } from "@apollo/client";
 import { Modal } from "antd";
+import { useRouter } from "next/router";
 import {
   IMutation,
   IMutationCreatePointTransactionOfLoadingArgs,
@@ -11,6 +12,8 @@ import {
   FETCH_USER_LOGGED_IN,
   CREATE_POINT_TRANSACTION_OF_LOADING,
   FETCH_USED_ITEMS_IPICKED,
+  FETCH_POINT_TRANSACTIONS_OF_BUYING,
+  FETCH_POINT_TRANSACTIONS_OF_LOADING,
 } from "./GetUser.queries";
 
 declare const window: Window &
@@ -19,6 +22,15 @@ declare const window: Window &
   };
 
 export default function GetUser() {
+  const router = useRouter();
+
+  const { data: purchaseList } = useQuery(FETCH_POINT_TRANSACTIONS_OF_BUYING, {
+    variables: { search: "", page: 1 },
+  });
+
+  const { data: chargeList } = useQuery(FETCH_POINT_TRANSACTIONS_OF_LOADING, {
+    variables: { search: "", page: 1 },
+  });
   const { data } =
     useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
 
@@ -48,9 +60,6 @@ export default function GetUser() {
         amount: 100,
         buyer_email: data?.fetchUserLoggedIn.email,
         buyer_name: data?.fetchUserLoggedIn.name,
-        // buyer_tel: "010-4242-4242",
-        // buyer_addr: "서울특별시 강남구 신사동",
-        // buyer_postcode: "01181",
       },
       async function (rsp: any) {
         // callback
@@ -74,11 +83,15 @@ export default function GetUser() {
       }
     );
   };
+
   return (
     <GetUserUI
       data={data}
       pickedItems={pickedItems}
+      purchaseList={purchaseList}
+      chargeList={chargeList}
       onClickPayMent={onClickPayMent}
+      onClickMoveGetItem={(id: string) => () => router.push(`/market/${id}`)}
     />
   );
 }

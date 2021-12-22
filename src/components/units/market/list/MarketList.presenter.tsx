@@ -7,12 +7,13 @@ import {
   replacePrice,
 } from "../../../../commons/libraries/utils";
 import { v4 as uuid } from "uuid";
+import SearchBar from "../../../commons/search/Search.container";
 
 export default function MarketListUI(props: IMarketListUIProps) {
   return (
     <>
       <S.ListHeader>
-        <h3>Best Of The Items</h3>
+        <S.HeaderTitle>Best Of The Items</S.HeaderTitle>
         <S.AddBtn onClick={props.onMoveMarketNew}>상품 등록하기</S.AddBtn>
       </S.ListHeader>
       <S.BestWrapper>
@@ -63,7 +64,10 @@ export default function MarketListUI(props: IMarketListUIProps) {
           </S.BestItemCard>
         ))}
       </S.BestWrapper>
-      <S.SearchBar>search bar</S.SearchBar>
+      <S.SearchBarWrapper>
+        <SearchBar setKeyWord={props.setKeyWord} />
+        <S.SearchBtn onClick={props.onClickSearch}>검색</S.SearchBtn>
+      </S.SearchBarWrapper>
       <InfiniteScroll pageStart={0} loadMore={props.onLoad} hasMore={true}>
         <S.InfiniteScrollBody>
           <S.UsedItemsWrapper>

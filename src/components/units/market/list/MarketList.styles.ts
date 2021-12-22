@@ -8,6 +8,12 @@ export const ListHeader = styled.div`
   position: relative;
 `;
 
+export const HeaderTitle = styled.h3`
+  font-size: 30px;
+  font-weight: bolder;
+  color: #00b5d7;
+`;
+
 export const BestWrapper = styled.div`
   width: 90%;
   height: 400px;
@@ -16,9 +22,13 @@ export const BestWrapper = styled.div`
   border: none;
 `;
 
-export const SearchBar = styled.div`
+export const SearchBarWrapper = styled.div`
   width: 100%;
   height: 100px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-top: 30px;
 `;
 
 export const InfiniteScrollBody = styled.div`
@@ -106,10 +116,23 @@ export const ItemIcon = styled.div`
 
 export const AddBtn = styled.button`
   position: absolute;
+  top: 20px;
   right: 60px;
-  border-radius: 5px;
+  width: 100px;
+  height: 40px;
   border: none;
-  font-weight: bolder;
+  border-radius: 5px;
+  background-color: #00b6d8;
+  color: white;
+`;
+
+export const SearchBtn = styled.button`
+  width: 100px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: #00b6d8;
+  color: white;
 `;
 
 export const ItemImg = styled.img`

@@ -1,15 +1,16 @@
-import { Bar } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
+  //   CategoryScale,
+  //   LinearScale,
+  //   BarElement,
+  //   Title,
+  ArcElement,
   Tooltip,
   Legend,
 } from "chart.js";
 import { gql, useQuery } from "@apollo/client";
-import { IQuery } from "../../src/commons/types/generated/types";
+import { IQuery } from "../../../../src/commons/types/generated/types";
 
 const FETCH_USED_ITEMS_COUNT_IPICKED = gql`
   query fetchUseditemsCountIPicked {
@@ -29,7 +30,7 @@ const FETCH_USED_ITEMS_COUNT_IBOUGHT = gql`
   }
 `;
 
-export default function TestPage() {
+export default function Chart() {
   const { data: pickCount } = useQuery<
     Pick<IQuery, "fetchUseditemsCountIPicked">
   >(FETCH_USED_ITEMS_COUNT_IPICKED);
@@ -42,14 +43,15 @@ export default function TestPage() {
     Pick<IQuery, "fetchUseditemsCountIBought">
   >(FETCH_USED_ITEMS_COUNT_IBOUGHT);
 
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend
-  );
+  //   ChartJS.register(
+  //     CategoryScale,
+  //     LinearScale,
+  //     BarElement,
+  //     Title,
+  //     Tooltip,
+  //     Legend
+  //   );
+  ChartJS.register(ArcElement, Tooltip, Legend);
 
   const labels = ["찜한 상품 수", "판매한 상품 수", "구매한 상품 수"];
 
@@ -57,13 +59,13 @@ export default function TestPage() {
     labels,
     datasets: [
       {
-        label: "Dataset 1",
+        label: "count",
         data: [
           pickCount?.fetchUseditemsCountIPicked,
           soldCount?.fetchUseditemsCountISold,
           boughtCount?.fetchUseditemsCountIBought,
         ],
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        backgroundColor: ["#00b6d8", "gray", "gold"],
       },
     ],
   };
@@ -75,15 +77,11 @@ export default function TestPage() {
         position: "top" as const,
       },
       title: {
-        display: true,
-        text: "Bar Chart Test",
+        // display: true,
+        // text: "Bar Chart Test",
       },
     },
   };
 
-  return (
-    <>
-      <Bar options={options} data={data} />
-    </>
-  );
+  return <Doughnut options={options} data={data} />;
 }

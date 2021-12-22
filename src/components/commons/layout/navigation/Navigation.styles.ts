@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 export const Navigation = styled.header`
   width: 100%;
-  height: 100px;
+  height: 80px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -15,13 +15,14 @@ export const Navigation = styled.header`
 
 export const NavMenu = styled.div`
   color: white;
-  font-size: 30px;
+  font-size: 20px;
 `;
 
-export const LogoutImg = styled.img`
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  top: 5px;
-  right: 10px;
+export const LogoutBtn = styled.button`
+  width: 100px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: #00b6d8;
+  color: white;
 `;

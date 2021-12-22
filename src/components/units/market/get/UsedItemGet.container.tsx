@@ -6,23 +6,40 @@ import {
   CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING,
   TOGGLE_USED_ITEM_PICK,
   FETCH_USER_LOGGED_IN,
+  DELETE_USED_ITEM,
+  FETCH_USED_ITEMS_IPICKED,
 } from "./UsedItemGet.queries";
 import { Modal } from "antd";
 import {
   IQuery,
   IQueryFetchUseditemArgs,
+  IQueryFetchUseditemsIPickedArgs,
   IUseditem,
 } from "../../../../commons/types/generated/types";
-
+import { useEffect, useState } from "react";
 export default function UsedItemGet() {
   const router = useRouter();
 
+  const [isPick, setIsPick] = useState(false);
   const [purchaseUsedItem] = useMutation(
     CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING
   );
   const [toggleUseditemPick] = useMutation(TOGGLE_USED_ITEM_PICK);
-
+  const [deleteUsedItem] = useMutation(DELETE_USED_ITEM);
   const { data: userInfo } = useQuery(FETCH_USER_LOGGED_IN);
+
+  const { data: pickItems, refetch: fetchPick } = useQuery<
+    Pick<IQuery, "fetchUseditemsIPicked">,
+    IQueryFetchUseditemsIPickedArgs
+  >(FETCH_USED_ITEMS_IPICKED, { variables: { search: "", page: 1 } });
+
+  useEffect(() => {
+    const pickList = pickItems?.fetchUseditemsIPicked.map((el) => el._id);
+    pickList?.includes(String(router.query.usedItemId))
+      ? setIsPick(true)
+      : setIsPick(false);
+  }, [pickItems]);
+
   const { data, refetch } = useQuery<
     Pick<IQuery, "fetchUseditem">,
     IQueryFetchUseditemArgs
@@ -34,12 +51,11 @@ export default function UsedItemGet() {
 
   const onClickPurchase = (itemId: any) => async () => {
     try {
-      const result = await purchaseUsedItem({
+      await purchaseUsedItem({
         variables: {
           useritemId: itemId,
         },
       });
-      console.log(result);
       Modal.success({ content: "구매가 완료되었습니다." });
       router.push("/user/get");
     } catch (error) {
@@ -74,10 +90,25 @@ export default function UsedItemGet() {
         },
       });
       const toggleInfo = result.data?.toggleUseditemPick;
-      toggleInfo === 1
-        ? Modal.success({ content: "찜하기 완료" })
-        : Modal.success({ content: "찜하기취소" });
+      if (toggleInfo === 1) {
+        Modal.success({ content: "찜하기 완료" });
+        setIsPick(true);
+      } else {
+        Modal.success({ content: "찜하기취소" });
+        setIsPick(false);
+      }
+      fetchPick();
       refetch();
+    } catch (error) {
+      error instanceof Error && Modal.error({ content: error.message });
+    }
+  };
+
+  const onClickDelete = (id: string) => () => {
+    try {
+      deleteUsedItem({ variables: { useditemId: id } });
+      Modal.success({ content: "상품 삭제가 완료 되었습니다." });
+      router.push("/market");
     } catch (error) {
       error instanceof Error && Modal.error({ content: error.message });
     }
@@ -86,12 +117,15 @@ export default function UsedItemGet() {
   return (
     <UsedItemGetUI
       data={data}
+      pickItems={pickItems}
       userInfo={userInfo}
+      isPick={isPick}
       onClickEdit={() => () =>
         router.push(`/market/${data?.fetchUseditem._id}/edit`)}
       onClickPurchase={onClickPurchase}
       onClickBasket={onClickBasket}
       onClickPick={onClickPick}
+      onClickDelete={onClickDelete}
     />
   );
 }

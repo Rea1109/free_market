@@ -7,9 +7,9 @@ import { checkValidationImage } from "./Uploads.validation";
 export default function Uploads(props: any) {
   const fileRef = useRef<HTMLInputElement>(null);
 
-  const [isEditImage, setIsEditImage] = useState(false);
   const [uploadImages, setUploadImages] = useState<string[]>([]);
   const [uploadFile] = useMutation(UPLOAD_FILE);
+  const [isEditImage, setIsEditImage] = useState(false);
 
   const onClickAddImage = () => {
     console.log(uploadImages.length);
@@ -17,54 +17,77 @@ export default function Uploads(props: any) {
   };
 
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(uploadImages.length);
-    console.log(uploadImages);
-
-    if (!isEditImage) {
-      if (props.data?.fetchUseditem.images.length > 2) {
-        alert("최대 3개 등록 가능");
-        return;
+    if (props.isEdit) {
+      if (!isEditImage) {
+        if (props.data?.fetchUseditem.images.length === 3) {
+          alert("최대 3개 등록 가능");
+          return;
+        }
+      } else {
+        if (uploadImages.length === 3) {
+          alert("최대 3개 등록 가능");
+          return;
+        }
       }
-    }
+      const file = checkValidationImage(event.target.files?.[0]);
+      if (!file) return;
 
-    if (isEditImage) {
+      const result = await uploadFile({
+        variables: { file },
+      });
+
+      if (!isEditImage) {
+        setUploadImages([
+          ...props.data?.fetchUseditem.images,
+          result.data.uploadFile.url,
+        ]);
+        props.setImages([
+          ...props.data?.fetchUseditem.images,
+          result.data.uploadFile.url,
+        ]);
+        console.log(result.data.uploadFile.url);
+        setIsEditImage(true);
+      } else {
+        setUploadImages((prev) => [...prev, result.data.uploadFile.url]);
+        props.setImages((prev: []) => [...prev, result.data.uploadFile.url]);
+        console.log(result.data.uploadFile.url);
+      }
+    } else {
       if (uploadImages.length > 2) {
         alert("최대 3개 등록 가능");
         return;
       }
-    }
+      const file = checkValidationImage(event.target.files?.[0]);
+      if (!file) return;
+      const result = await uploadFile({
+        variables: { file },
+      });
 
-    if (uploadImages.length > 2) {
-      alert("최대 3개 등록 가능");
-      return;
+      setUploadImages((prev) => [...prev, result.data.uploadFile.url]);
+      props.setImages((prev: []) => [...prev, result.data.uploadFile.url]);
     }
-    const file = checkValidationImage(event.target.files?.[0]);
-    if (!file) return;
-    const result = await uploadFile({
-      variables: { file },
-    });
-
-    setUploadImages((prev) => [...prev, result.data.uploadFile.url]);
-    props.setImages((prev: []) => [...prev, result.data.uploadFile.url]);
   };
 
   const deleteImageFile = (el: any) => () => {
-    console.log(el);
-    setUploadImages([...props.data?.fetchUseditem.images]);
-
-    if (isEditImage) {
-      const temp = uploadImages.filter((prev) => {
-        return prev !== el;
-      });
-      setUploadImages(temp);
-      console.log(temp);
+    if (props.isEdit) {
+      if (isEditImage) {
+        const temp = uploadImages.filter((prev) => prev !== el);
+        setUploadImages([...temp]);
+        props.setImages([...temp]);
+        console.log(temp);
+      } else {
+        const temp = props.data?.fetchUseditem.images.filter(
+          (prev: []) => prev !== el
+        );
+        setUploadImages([...temp]);
+        props.setImages([...temp]);
+        setIsEditImage(true);
+      }
     } else {
-      const temp = props.data?.fetchUseditem.images.filter((prev: any) => {
-        return prev !== el;
-      });
-      setUploadImages(temp);
-      setIsEditImage(true);
-      console.log(temp);
+      alert("이미지 삭제");
+      const temp = uploadImages.filter((prev) => prev !== el);
+      setUploadImages([...temp]);
+      props.setImages([...temp]);
     }
   };
 

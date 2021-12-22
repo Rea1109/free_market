@@ -13,6 +13,7 @@ export default function SearchAddr(props: any) {
   const [MyMarkerT, setMyMarker] = useState<any>(null);
   const [address, setAddress] = useState("");
   const [zipcode, setZipcode] = useState("");
+
   function onClickSearchAddr() {
     new window.daum.Postcode({
       oncomplete: function (data: any) {
@@ -30,7 +31,6 @@ export default function SearchAddr(props: any) {
             // 정상적으로 검색이 완료됐으면
             if (status === window.daum.maps.services.Status.OK) {
               const result = results[0]; // 첫번째 결과의 값을 활용
-
               // 해당 주소에 대한 좌표를 받아서
               const coords = new window.daum.maps.LatLng(result.y, result.x);
               console.log(result.y, result.x); // 좌표값 확인
@@ -89,6 +89,7 @@ export default function SearchAddr(props: any) {
       addressDetail: event.target.value,
     }));
   };
+
   return (
     <SearchAddrUI
       zipcode={zipcode}

@@ -46,7 +46,11 @@ export default function UsedItemWrite(props: any) {
   };
 
   const onSubmitUsedItem = async (data: FormValues) => {
-    console.log(images);
+    console.log(images.length);
+    if (images.length === 0) {
+      alert("상품 사진을 최소 1장이라도 올려주세요");
+      return;
+    }
     try {
       const result = await createUsedItem({
         variables: {
@@ -69,6 +73,10 @@ export default function UsedItemWrite(props: any) {
   };
 
   const onClickUpdate = async (data: FormValues) => {
+    if (images.length === 0) {
+      alert("상품 사진을 최소 1장이라도 올려주세요");
+      return;
+    }
     const updateUseditemInput = {
       name: data.name,
       contents: data.contents,
@@ -76,7 +84,6 @@ export default function UsedItemWrite(props: any) {
       remarks: data.remarks,
       images,
     };
-    console.log(updateUseditemInput);
     try {
       const result = await updateUsedItem({
         variables: {

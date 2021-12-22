@@ -2,6 +2,7 @@ import * as S from "./Uploads.styles";
 import { changeUrl } from "../../../commons/libraries/utils";
 
 export default function UploadsUI(props: any) {
+  console.log(props.isEditImage);
   return (
     <>
       <S.UploadImageTitle>Attach Images</S.UploadImageTitle>
@@ -24,7 +25,7 @@ export default function UploadsUI(props: any) {
                   />
                 )
               )}
-
+          {}
           <S.UploadIcon onClick={props.onClickAddImage}>
             upload image
           </S.UploadIcon>
@@ -33,7 +34,11 @@ export default function UploadsUI(props: any) {
         <S.UploadImageWrapper>
           {props.uploadImages &&
             props.uploadImages.map((el: string, idx: number) => (
-              <S.UploadImage key={el} src={changeUrl(el)} />
+              <S.UploadImage
+                key={el}
+                src={changeUrl(el)}
+                onClick={props.deleteImageFile(el)}
+              />
             ))}
 
           <S.UploadIcon onClick={props.onClickAddImage}>

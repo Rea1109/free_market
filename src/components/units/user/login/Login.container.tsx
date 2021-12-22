@@ -58,6 +58,7 @@ export default function Login() {
           },
         },
       });
+      console.log("confirm : ", resultUserInfo.data);
       Modal.success({
         title: `Hi ${resultUserInfo.data.fetchUserLoggedIn.name} !`,
       });
