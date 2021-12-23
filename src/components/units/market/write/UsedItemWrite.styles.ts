@@ -96,7 +96,6 @@ export const InfoInputBox = styled.input`
   width: 90%;
   height: 30px;
   border: 1px solid #d9d9d9;
-  color: red;
   padding: 10px;
 `;
 

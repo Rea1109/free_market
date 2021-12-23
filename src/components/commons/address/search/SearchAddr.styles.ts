@@ -31,7 +31,6 @@ export const ZipcodeBox = styled(Input)`
   width: 10%;
   height: 40px;
   border-radius: 5px;
-  font-size: 10px;
 `;
 
 export const AddreessBox = styled(Input)`

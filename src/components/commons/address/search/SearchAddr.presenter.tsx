@@ -20,6 +20,7 @@ export default function SearchAddrUI(props: any) {
         />
         <S.AddressDetailBox
           type="text"
+          placeholder="addressDetail"
           onChange={props.onChangeAddressDetail}
         />
         <S.SearchAddrBtn type="button" onClick={props.onClickSearchAddr}>

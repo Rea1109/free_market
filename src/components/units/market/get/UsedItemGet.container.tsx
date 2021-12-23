@@ -26,7 +26,8 @@ export default function UsedItemGet() {
   );
   const [toggleUseditemPick] = useMutation(TOGGLE_USED_ITEM_PICK);
   const [deleteUsedItem] = useMutation(DELETE_USED_ITEM);
-  const { data: userInfo } = useQuery(FETCH_USER_LOGGED_IN);
+  const { data: userInfo } =
+    useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
 
   const { data: pickItems, refetch: fetchPick } = useQuery<
     Pick<IQuery, "fetchUseditemsIPicked">,
@@ -49,7 +50,7 @@ export default function UsedItemGet() {
     },
   });
 
-  const onClickPurchase = (itemId: any) => async () => {
+  const onClickPurchase = (itemId: string | undefined) => async () => {
     try {
       await purchaseUsedItem({
         variables: {
@@ -63,11 +64,11 @@ export default function UsedItemGet() {
     }
   };
 
-  const onClickBasket = (el: IUseditem) => () => {
+  const onClickBasket = (el: IUseditem | undefined) => () => {
     const baskets = JSON.parse(localStorage.getItem("basket") || "[]");
     let isExists = false;
     baskets.forEach((basketEl: IUseditem) => {
-      if (el._id === basketEl._id) isExists = true;
+      if (el?._id === basketEl._id) isExists = true;
     });
 
     if (isExists) {
@@ -75,14 +76,14 @@ export default function UsedItemGet() {
       return;
     }
 
-    const { __typename, ...newEl } = el;
-    baskets.push(newEl);
+    // const { __typename, ...newEl } = el;
+    baskets.push(el);
 
     localStorage.setItem("basket", JSON.stringify(baskets));
     alert("장바구니에 담았습니다.");
   };
 
-  const onClickPick = (itemId: string) => async () => {
+  const onClickPick = (itemId: string | undefined) => async () => {
     try {
       const result = await toggleUseditemPick({
         variables: {
@@ -104,9 +105,9 @@ export default function UsedItemGet() {
     }
   };
 
-  const onClickDelete = (id: string) => () => {
+  const onClickDelete = (itemId: string | undefined) => () => {
     try {
-      deleteUsedItem({ variables: { useditemId: id } });
+      deleteUsedItem({ variables: { useditemId: itemId } });
       Modal.success({ content: "상품 삭제가 완료 되었습니다." });
       router.push("/market");
     } catch (error) {

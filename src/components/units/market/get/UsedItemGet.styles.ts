@@ -17,12 +17,13 @@ export const SliderDiv = styled.div`
 
 export const SliderImgDiv = styled.div`
   width: 200px;
+  height: 350px;
   background-color: red;
 `;
 
 export const SliderImg = styled.img`
   width: 100%;
-  height: 300px;
+  height: 350px;
 `;
 
 export const ItemInfoWrapper = styled.div`
@@ -46,4 +47,10 @@ export const ItemInfoContents = styled.div`
   border: 3px solid black;
   width: 80%;
   height: 52px;
+`;
+
+export const ItemnContents = styled.div`
+  background-color: white;
+  border: 3px solid black;
+  width: 80%;
 `;

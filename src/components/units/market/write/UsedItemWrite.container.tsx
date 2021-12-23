@@ -3,13 +3,13 @@ import { Modal } from "antd";
 import UsedItemWriteUI from "./UsedItemWrite.presenter";
 import { CREATE_USED_ITEM, UPDATE_USED_ITEM } from "./UsedItemWrite.qureies";
 import { useRouter } from "next/router";
-import { schema, editSchema } from "./UsedItemWrite.validations";
+import { schema } from "./UsedItemWrite.validations";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import { useState } from "react";
-import { FormValues } from "./UsedItemWrite.types";
+import { FormValues, IUsedItemWriteProps } from "./UsedItemWrite.types";
 
-export default function UsedItemWrite(props: any) {
+export default function UsedItemWrite(props: IUsedItemWriteProps) {
   const router = useRouter();
 
   const [images, setImages] = useState([]);
@@ -28,7 +28,7 @@ export default function UsedItemWrite(props: any) {
   const { handleSubmit, register, setValue, trigger, formState, getValues } =
     useForm({
       mode: "onChange",
-      resolver: props.isEdit ? yupResolver(editSchema) : yupResolver(schema),
+      resolver: yupResolver(schema),
     });
 
   const handleTag = (value: string[]) => {
@@ -87,7 +87,7 @@ export default function UsedItemWrite(props: any) {
     try {
       const result = await updateUsedItem({
         variables: {
-          useditemId: props.data.fetchUseditem._id,
+          useditemId: props.data?.fetchUseditem._id,
           updateUseditemInput,
         },
       });

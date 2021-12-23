@@ -52,6 +52,8 @@ export const BestItemCard = styled.div`
   justify-content: space-between;
   align-items: flex-end;
   border: none;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px gray;
   overflow: hidden;
 `;
 
@@ -84,6 +86,8 @@ export const ItemCard = styled.div`
   justify-content: space-between;
   align-items: flex-end;
   border: none;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px gray;
   overflow: hidden;
 `;
 
@@ -138,7 +142,7 @@ export const SearchBtn = styled.button`
 export const ItemImg = styled.img`
   width: 100%;
   height: 55%;
-  border-radius: 10px;
+  border-radius: 10px 10px 0px 0px;
 `;
 
 export const AddBasket = styled.button`

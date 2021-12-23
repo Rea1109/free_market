@@ -30,7 +30,8 @@ export default function UsedItemWriteUI(props: any) {
             <S.InfoWrapper>
               <S.InfoInputBox
                 placeholder="Price"
-                defaultValue={props.isEdit && props.data?.fetchUseditem.price}
+                // defaultValue={props.isEdit && props.data?.fetchUseditem.price}
+                defaultValue={0}
                 type="number"
                 {...props.register("price")}
               />

@@ -12,9 +12,6 @@ export default function MainUI(props: IMainUIProps) {
           <S.WeatherBtn onClick={() => window.location.reload()}>
             <img src="/images/main/reload.png" />
           </S.WeatherBtn>
-          {/* <S.WeatherSubWrapper>
-            <S.WeatherImg src={props.weatherInfo.src} />
-          </S.WeatherSubWrapper> */}
           <S.WheatherWrapper>
             <S.WeatherSubWrapper>
               <img src="/images/main/weather-news.png" />

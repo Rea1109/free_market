@@ -100,11 +100,6 @@ export const WeatherSubWrapper = styled.div`
   align-items: center;
 `;
 
-export const WeatherImg = styled.img`
-  width: 100px;
-  height: 100px;
-`;
-
 export const WeatherInfo = styled.div`
   font-size: 30px;
   /* color: #4c4c4c; */
@@ -201,9 +196,9 @@ export const UserInfoBtn = styled.button`
 `;
 
 export const ProfileImg = styled.img`
-  width: 50%;
+  width: 70%;
   height: 50%;
-  border-radius: 100%;
+  border-radius: 20px;
 `;
 
 export const ProfileName = styled.h1`

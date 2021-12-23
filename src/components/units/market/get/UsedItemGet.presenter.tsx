@@ -3,8 +3,9 @@ import Slider from "react-slick";
 import GetMap from "../../../commons/address/get/GetMap.container";
 import Dompurify from "dompurify";
 import { changeUrl } from "../../../../commons/libraries/utils";
+import { UsedItemGetUIProps } from "./UsedItemGet.types";
 
-export default function UsedItemGetUI(props: any) {
+export default function UsedItemGetUI(props: UsedItemGetUIProps) {
   const settings = {
     dots: true,
     infinite: true,
@@ -16,7 +17,7 @@ export default function UsedItemGetUI(props: any) {
     <S.Wrapper>
       <S.SliderDiv>
         <Slider {...settings}>
-          {props.data?.fetchUseditem.images.map((el: any) => (
+          {props.data?.fetchUseditem.images?.map((el: any) => (
             <S.SliderImgDiv key={el}>
               <S.SliderImg src={changeUrl(el)} />
             </S.SliderImgDiv>
@@ -30,20 +31,22 @@ export default function UsedItemGetUI(props: any) {
         <S.ItemInfoContents>
           가격 : {props.data?.fetchUseditem.price}
         </S.ItemInfoContents>
-        상품설명 :
         {process.browser ? (
-          <div
+          <S.ItemnContents
             dangerouslySetInnerHTML={{
               __html: Dompurify.sanitize(
                 props.data?.fetchUseditem.contents || ""
               ),
             }}
-          ></div>
+          ></S.ItemnContents>
         ) : (
           <div />
         )}
         <S.ItemInfoContents>
           한줄소개 : {props.data?.fetchUseditem.remarks}
+        </S.ItemInfoContents>
+        <S.ItemInfoContents>
+          태그 : {props.data?.fetchUseditem.tags}
         </S.ItemInfoContents>
         <S.ItemInfoContents>
           찜하기 수 : {props.data?.fetchUseditem.pickedCount}
@@ -56,9 +59,7 @@ export default function UsedItemGetUI(props: any) {
         {props.data?.fetchUseditem.seller?._id ===
         props.userInfo?.fetchUserLoggedIn._id ? (
           <>
-            <button onClick={props.onClickEdit(props.data?.fetchUseditem._id)}>
-              수정하기
-            </button>
+            <button onClick={props.onClickEdit()}>수정하기</button>
             <button
               onClick={props.onClickDelete(props.data?.fetchUseditem._id)}
             >
