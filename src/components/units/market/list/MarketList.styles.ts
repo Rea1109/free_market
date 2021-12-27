@@ -130,15 +130,6 @@ export const AddBtn = styled.button`
   color: white;
 `;
 
-export const SearchBtn = styled.button`
-  width: 100px;
-  height: 40px;
-  border: none;
-  border-radius: 5px;
-  background-color: #00b6d8;
-  color: white;
-`;
-
 export const ItemImg = styled.img`
   width: 100%;
   height: 55%;

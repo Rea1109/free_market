@@ -58,6 +58,7 @@ export default function SearchAddr(props: any) {
     const container = document.getElementById("map");
     const options = {
       center: new window.kakao.maps.LatLng(37.4849270383011, 126.896538036905),
+      // center: new window.kakao.maps.LatLng(440835.702858056, 195385.483301786),
       level: 3,
     };
     const map = new window.kakao.maps.Map(container, options);

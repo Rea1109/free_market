@@ -65,8 +65,10 @@ export default function MarketListUI(props: IMarketListUIProps) {
         ))}
       </S.BestWrapper>
       <S.SearchBarWrapper>
-        <SearchBar setKeyWord={props.setKeyWord} />
-        <S.SearchBtn onClick={props.onClickSearch}>검색</S.SearchBtn>
+        <SearchBar
+          setKeyWord={props.setKeyWord}
+          onClickSearch={props.onClickSearch}
+        />
       </S.SearchBarWrapper>
       <InfiniteScroll pageStart={0} loadMore={props.onLoad} hasMore={true}>
         <S.InfiniteScrollBody>
