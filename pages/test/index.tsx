@@ -1,3 +1,4 @@
+import { Modal } from "antd";
 import axios from "axios";
 import { KeyboardEvent, useState } from "react";
 
@@ -54,6 +55,10 @@ export default function TestPage() {
     marker.setMap(map);
   };
 
+  const test = () => {
+    Modal.success({ content: "test" });
+  };
+
   return (
     <>
       <div>test page</div>
@@ -61,6 +66,7 @@ export default function TestPage() {
       <button onClick={onClickApi}>open api</button>
       <textarea value={content}></textarea>
       <div style={{ width: "500px", height: "500px" }} id="map"></div>
+      <button onClick={test}>modal test</button>
     </>
   );
 }
