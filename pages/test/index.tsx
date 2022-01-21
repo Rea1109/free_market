@@ -13,7 +13,7 @@ export default function TestPage() {
   const [content, setContent] = useState();
 
   const onKeyUpTest = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") console.log(e.target.value);
+    // if (e.key === "Enter") console.log(e.target.value);
   };
 
   const onClickApi = async () => {
